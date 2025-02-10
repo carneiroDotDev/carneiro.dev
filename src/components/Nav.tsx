@@ -14,7 +14,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Icons } from "./icons";
-import { DarkModeToggle } from "./ui/DarkModeToggle";
+// import { DarkModeToggle } from "./ui/DarkModeToggle";
 
 const posts: { title: string; href: string; description: string }[] = [
   {
@@ -86,7 +86,7 @@ export function Nav() {
           </NavigationMenuItem>
 
           <div className="flex items-center justify-between w-20">
-            <DarkModeToggle />
+            {/* <DarkModeToggle /> */}
             <Link href="/rss">
               <Icons.rss className="w-6 h-6" />
             </Link>
