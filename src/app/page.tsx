@@ -1,5 +1,13 @@
 import LatestPosts from "@/components/home/latest-posts";
+import { Nav } from "@/components/Nav";
 
 export default function Home() {
-  return <LatestPosts />;
+  return (
+    <>
+      <Nav />
+      <main>
+        <LatestPosts />
+      </main>
+    </>
+  );
 }
