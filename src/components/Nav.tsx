@@ -29,12 +29,6 @@ const posts: { title: string; href: string; description: string }[] = [
     description: "Learn JS",
   },
   {
-    title: "React",
-    href: "/blog/react",
-    description:
-      "Learn React.js and Next.js in a simple to understand articles",
-  },
-  {
     title: "CSS",
     href: "/blog/css",
     description: "Everything about CSS",
@@ -55,8 +49,8 @@ export function Nav() {
     >
       <Link href={"/"}>
         <div className="flex items-center justify-between w-32">
-          <Icons.logo className="w-6 h-6" />
-          <p>Luiz</p>
+          <Icons.orbit className="w-6 h-6" />
+          <p>Luiz Carneiro</p>
         </div>
       </Link>
       <NavigationMenu>
@@ -84,15 +78,14 @@ export function Nav() {
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
-
-          <div className="flex items-center justify-between w-20">
-            <DarkModeToggle />
-            <Link href="/rss">
-              <Icons.rss className="w-6 h-6" />
-            </Link>
-          </div>
         </NavigationMenuList>
       </NavigationMenu>
+      <div className="flex items-center justify-between w-20">
+        <DarkModeToggle />
+        <Link href="/rss">
+          <Icons.rss className="w-6 h-6" />
+        </Link>
+      </div>
     </div>
   );
 }

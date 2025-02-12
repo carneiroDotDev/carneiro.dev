@@ -12,9 +12,8 @@ export default function LatestPosts() {
             new Date(a.metaData.publishedAt) > new Date(b.metaData.publishedAt)
           ) {
             return -1;
-          } else {
-            return 1;
           }
+          return 1;
         })
         .map((post) => (
           <article key={post.slug} className="text-wrap max-w-md my-10">
@@ -29,7 +28,6 @@ export default function LatestPosts() {
             </p>
           </article>
         ))}
-      ;
     </>
   );
 }
