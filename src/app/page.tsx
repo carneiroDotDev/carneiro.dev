@@ -22,6 +22,10 @@ export default function Home() {
               <h2 className="font-bold mb-4">Popular Posts</h2>
               <PopularPosts />
             </div>
+            <div className="sticky mt-10 top-0">
+              <h2 className="font-bold mb-4">Popular Posts</h2>
+              <PopularPosts />
+            </div>
           </div>
         </main>
       </>
