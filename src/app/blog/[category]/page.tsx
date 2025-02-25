@@ -1,9 +1,16 @@
 import React from 'react'
+import { getBlogPosts } from '../utils'
+import { notFound } from 'next/navigation'
 
-function Blog() {
+function Page({ params }: {params: { category: string}}) {
+    const posts = getBlogPosts().filter((post) => post.metaData.category === params.category)
+
+    if(!posts){
+        notFound()
+    }
   return (
-    <div>Blog</div>
+    <div>{params.category}</div>
   )
 }
 
-export default Blog
+export default Page
