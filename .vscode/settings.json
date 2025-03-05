@@ -24,4 +24,10 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "peacock.color": "#f9e64f",
+    "vim.handleKeys": {
+        "<C-p>": false,
+        "<C-j>": false,
+        "<C-f>": false,
+        "<C-e>": false
+    }
 }

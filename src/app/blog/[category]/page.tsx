@@ -11,42 +11,45 @@ function Page({ params }: { params: { category: string } }) {
     (post) => post.metaData.category === params.category
   );
 
-  if (!posts) {
+  if (!posts.length) {
     notFound();
   }
+
   return (
     <>
-    <Header>
+      <Header>
         <PageContainer>
-            <h1 className="title font-semibold text-2xl tracking-wider mt-4 uppercase">{params.category}</h1>
+          <h1 className="title font-semibold text-2xl tracking-wider mt-4 uppercase">
+            {posts[0]?.metaData.category}
+          </h1>
         </PageContainer>
-    </Header>
-    <PageContainer>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
-        {posts
-          .sort((a, b) => {
-            if (
-              new Date(a.metaData.publishedAt) >
-              new Date(b.metaData.publishedAt)
-            ) {
-              return -1;
-            }
-            return 1;
-          })
-          .map((post) => (
-            <Link
-              href={`/blog/${post.metaData.category}`}
-              key={`/blog/${post.slug}`}
-            >
-              <CardCategory
-                title={post.metaData.title}
-                summary={post.metaData.summary}
-                date={post.metaData.publishedAt}
-              />
-            </Link>
-          ))}
-      </div>
-    </PageContainer>
+      </Header>
+      <PageContainer>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
+          {posts
+            .sort((a, b) => {
+              if (
+                new Date(a.metaData.publishedAt) >
+                new Date(b.metaData.publishedAt)
+              ) {
+                return -1;
+              }
+              return 1;
+            })
+            .map((post) => (
+              <Link
+                href={`/blog/${post.metaData.category}/${post.slug}`}
+                key={`/blog/${post.slug}`}
+              >
+                <CardCategory
+                  title={post.metaData.title}
+                  summary={post.metaData.summary}
+                  date={post.metaData.publishedAt}
+                />
+              </Link>
+            ))}
+        </div>
+      </PageContainer>
     </>
   );
 }
