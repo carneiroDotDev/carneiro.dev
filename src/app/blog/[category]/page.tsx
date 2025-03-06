@@ -6,10 +6,11 @@ import PageContainer from "@/components/PageContainer";
 import CardCategory from "@/components/CardCategory";
 import Header from "@/components/Header";
 
-function Page({ params }: { params: { category: string } }) {
-  const posts = getBlogPosts().filter(
-    (post) => post.metaData.category === params.category
-  );
+async function Page({ params }: { params: { category: string } }) {
+  const { category } = await params;
+  const posts = getBlogPosts().filter((post) => {
+    return post.metaData.category === category;
+  });
 
   if (!posts.length) {
     notFound();
