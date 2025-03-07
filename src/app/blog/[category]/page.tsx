@@ -6,7 +6,7 @@ import PageContainer from "@/components/PageContainer";
 import CardCategory from "@/components/CardCategory";
 import Header from "@/components/Header";
 
-async function Page({ params }: { params: { category: string } }) {
+async function Page({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
   const posts = getBlogPosts().filter((post) => {
     return post.metaData.category === category;
