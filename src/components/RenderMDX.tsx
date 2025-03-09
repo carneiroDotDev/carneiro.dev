@@ -1,23 +1,30 @@
+import React from "react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { highlight } from "sugar-high";
 
-function RenderCode(props: { children: string; className: string }) {
-  const language = props.className.replace("language-", "");
+function Blockquote(props: any) {
   return (
-    <pre className="rounded-lg p-4 bg-neutral-100 dark:bg-neutral-800 overflow-x-auto">
-      <code className={`language-${language}`}>{props.children}</code>
-    </pre>
+    <blockquote
+      className="bg-blue-200 dark:bg-blue-950 dark:bg-opacity-30 bg-opacity-30 p-4 rounded-md blockquote"
+      {...props}
+    />
   );
 }
 
-function CustomLink(props: { href: string; children: React.ReactNode }) {
-  const { href, children } = props;
+function Code({ children, ...props }: any) {
+  const codeHTML = highlight(children);
+
+  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+}
+
+function CustomLink(props: any) {
+  const href = props.href;
 
   if (href.startsWith("/")) {
     return (
-      <Link {...props} href={href}>
+      <Link href={href} {...props}>
         {props.children}
       </Link>
     );
@@ -27,54 +34,36 @@ function CustomLink(props: { href: string; children: React.ReactNode }) {
     return <a {...props} />;
   }
 
-  return (
-    <a
-      target="_blank"
-      rel="noopener noreferrer"
-      {...props}
-      className="text-blue-500 hover:underline"
-    />
-  );
-}
-function RoundedImage(props: { [key: string]: string }) {
-  const { src, alt } = props;
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      width={800}
-      height={600}
-      className="rounded-lg"
-      {...props}
-    />
-  );
+  return <a target="_blank" rel="noopener noreferrer" {...props} />;
 }
 
-function slugify(text: string) {
-  return text
+function RoundedImage(props: any) {
+  return <Image alt={props.alt} className="rounded-lg" {...props} />;
+}
+
+function slugify(str: string) {
+  return str
     .toString()
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, "-") // Replace spaces w -
-    .replace(/&/g, "-and-") // Replace & w 'and'
-    .replace(/[^\w-]+/g, "") // Remove all non-word chars
-    .replace(/--+/g, "-") // Replace multiple - w single -
-    .replace(/^-+/, "") // Trim - from start of text
-    .replace(/-+$/, ""); // Trim - from end of text;
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/&/g, "-and-") // Replace & with and
+    .replace(/\-\-+/g, "-"); // Replace multiple - with single -
 }
 
 function createHeading(level: number) {
   const Heading = ({ children }: any) => {
     const slug = slugify(children);
+
     return React.createElement(
       `h${level}`,
       { id: slug },
       [
-        React.createElement(
-          "a",
-          { href: `#${slug}`, key: `link-${slug}`, className: "anchor" },
-          children
-        ),
+        React.createElement("a", {
+          href: `#${slug}`,
+          key: `link-${slug}`,
+          className: "anchor",
+        }),
       ],
       children
     );
@@ -82,6 +71,25 @@ function createHeading(level: number) {
 
   Heading.displayName = `Heading${level}`;
   return Heading;
+}
+
+function Table({ data }: any) {
+  const headers = data.headers.map((header: any, index: any) => (
+    <th key={index}>{header}</th>
+  ));
+
+  const rows = data.rows.map((cell: any, cellIndex: any) => (
+    <td key={cellIndex}>{cell}</td>
+  ));
+
+  return (
+    <table>
+      <thead>
+        <tr>{headers}</tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </table>
+  );
 }
 
 const components = {
@@ -93,7 +101,9 @@ const components = {
   h6: createHeading(6),
   Image: RoundedImage,
   a: CustomLink,
-  code: RenderCode,
+  code: Code,
+  blockquote: Blockquote,
+  Table,
 };
 
 export default function RenderMDX(props: any) {

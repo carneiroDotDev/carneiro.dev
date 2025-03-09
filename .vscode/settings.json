@@ -31,5 +31,6 @@
         "<C-e>": false,
         "<C-i>": false,
         "<C-I>": false,
+        "<C-Alt-/>": false,
     }
 }

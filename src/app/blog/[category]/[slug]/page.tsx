@@ -36,7 +36,7 @@ async function ArticlePage({
       </Header>
       <PageContainer>
         <article className="prose">
-          <RenderMDX />
+          <RenderMDX source={post.content} />
         </article>
       </PageContainer>
     </>
