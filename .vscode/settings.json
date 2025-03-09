@@ -28,6 +28,8 @@
         "<C-p>": false,
         "<C-j>": false,
         "<C-f>": false,
-        "<C-e>": false
+        "<C-e>": false,
+        "<C-i>": false,
+        "<C-I>": false,
     }
 }

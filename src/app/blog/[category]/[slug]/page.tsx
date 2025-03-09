@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import PageContainer from "@/components/PageContainer";
 import { Breadcrumb } from "@/components/BreadCrumb";
+import RenderMDX from "@/components/RenderMDX";
 
 async function ArticlePage({
   params,
@@ -34,7 +35,9 @@ async function ArticlePage({
         </PageContainer>
       </Header>
       <PageContainer>
-        <article className=""></article>
+        <article className="prose">
+          <RenderMDX />
+        </article>
       </PageContainer>
     </>
   );
