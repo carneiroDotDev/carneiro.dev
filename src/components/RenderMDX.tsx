@@ -1,10 +1,10 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import Link from "next/link";
 import { highlight } from "sugar-high";
 
-function Blockquote(props: any) {
+function Blockquote(props: { children: ReactElement[] }) {
   return (
     <blockquote
       className="bg-blue-200 dark:bg-blue-950 dark:bg-opacity-30 bg-opacity-30 p-4 rounded-md blockquote"
@@ -13,7 +13,13 @@ function Blockquote(props: any) {
   );
 }
 
-function Code({ children, ...props }: any) {
+function Code({
+  children,
+  ...props
+}: {
+  children: string;
+  [key: string]: string;
+}) {
   const codeHTML = highlight(children);
 
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;

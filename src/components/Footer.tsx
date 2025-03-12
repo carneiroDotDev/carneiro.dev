@@ -12,11 +12,16 @@ function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <Icons.orbit className="w-6 h-6" />
-              <span className="text-md font-semibold">Luiz Carneiro</span>
+              <Link href={"/"}>
+                <div className="flex items-center space-x-2">
+                  <Icons.orbit className="w-6 h-6" />
+                  <p>Luiz Carneiro</p>
+                </div>
+              </Link>
             </div>
             <p className="text-gray-500 dark:text-gray-400 text-sm">
-              Maybe I will add some messge here
+              If Putin was born in Brasil, he would be too busy drinking caipi
+              🍹
             </p>
             <div className="flex space-x-4">
               <a
