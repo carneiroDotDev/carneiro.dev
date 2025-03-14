@@ -6,6 +6,14 @@ import PageContainer from "@/components/PageContainer";
 import CardCategory from "@/components/CardCategory";
 import Header from "@/components/Header";
 
+// Generate static pages from these dynamic routes
+export async function generateStaticParams() {
+  const posts = getBlogPosts();
+  return posts.map((post) => ({
+    category: post.metaData.category,
+  }));
+}
+
 async function Page({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
   const posts = getBlogPosts().filter((post) => {

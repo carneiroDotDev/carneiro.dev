@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import Link from "next/link";
 import { highlight } from "sugar-high";
@@ -25,12 +25,16 @@ function Code({
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
-function CustomLink(props: any) {
+function CustomLink(props: {
+  href: string;
+  children: string;
+  [key: string]: string;
+}) {
   const href = props.href;
 
   if (href.startsWith("/")) {
     return (
-      <Link href={href} {...props}>
+      <Link {...props} href={href}>
         {props.children}
       </Link>
     );
@@ -43,8 +47,14 @@ function CustomLink(props: any) {
   return <a target="_blank" rel="noopener noreferrer" {...props} />;
 }
 
-function RoundedImage(props: any) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />;
+function RoundedImage(props: {
+  alt: string;
+  src: string;
+  props: { [key: string]: string };
+}) {
+  return (
+    <Image {...props} src={props.src} alt={props.alt} className="rounded-lg" />
+  );
 }
 
 function slugify(str: string) {
@@ -58,7 +68,7 @@ function slugify(str: string) {
 }
 
 function createHeading(level: number) {
-  const Heading = ({ children }: any) => {
+  const Heading = ({ children }: { children: string }) => {
     const slug = slugify(children);
 
     return React.createElement(
@@ -79,12 +89,12 @@ function createHeading(level: number) {
   return Heading;
 }
 
-function Table({ data }: any) {
-  const headers = data.headers.map((header: any, index: any) => (
+function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {
+  const headers = data.headers.map((header: string, index: number) => (
     <th key={index}>{header}</th>
   ));
 
-  const rows = data.rows.map((cell: any, cellIndex: any) => (
+  const rows = data.rows.map((cell: string[], cellIndex: number) => (
     <td key={cellIndex}>{cell}</td>
   ));
 
@@ -112,7 +122,7 @@ const components = {
   Table,
 };
 
-export default function RenderMDX(props: any) {
+export default function RenderMDX(props: MDXRemoteProps) {
   return (
     <MDXRemote
       {...props}

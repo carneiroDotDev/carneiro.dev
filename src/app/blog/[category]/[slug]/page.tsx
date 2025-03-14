@@ -6,6 +6,14 @@ import PageContainer from "@/components/PageContainer";
 import { Breadcrumb } from "@/components/BreadCrumb";
 import RenderMDX from "@/components/RenderMDX";
 
+// Generate static pages from these dynamic routes
+export async function generateStaticParams() {
+  const posts = getBlogPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
 async function ArticlePage({
   params,
 }: {
