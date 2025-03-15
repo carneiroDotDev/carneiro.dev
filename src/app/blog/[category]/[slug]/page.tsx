@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import PageContainer from "@/components/PageContainer";
 import { Breadcrumb } from "@/components/BreadCrumb";
 import RenderMDX from "@/components/RenderMDX";
+import ReportViews from "@/components/ReportViews";
 
 // Generate static pages from these dynamic routes
 export async function generateStaticParams() {
@@ -27,6 +28,11 @@ async function ArticlePage({
   }
   return (
     <>
+      <ReportViews
+        category={post.metaData.category}
+        title={post.metaData.title}
+        slug={post.slug}
+      />
       <Header>
         <PageContainer>
           <>
