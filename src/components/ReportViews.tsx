@@ -1,5 +1,5 @@
 "use client";
-import { REPORT_VIEWS_URL } from "@/lib/utils";
+import { fetchUrl } from "@/lib/utils";
 import React, { useEffect } from "react";
 
 export default function ReportViews({
@@ -14,7 +14,7 @@ export default function ReportViews({
   useEffect(() => {
     const postData = async () => {
       try {
-        await fetch(REPORT_VIEWS_URL, {
+        await fetch(fetchUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
