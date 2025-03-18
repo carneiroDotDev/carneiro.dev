@@ -33,6 +33,18 @@ export function getBlogPosts() {
   );
 }
 
+export function getTermsOfServices() {
+  return getMDXContent(
+    path.join(process.cwd(), "src", "app", "terms-of-services")
+  );
+}
+
+export function getPrivacyPolicy() {
+  return getMDXContent(
+    path.join(process.cwd(), "src", "app", "privacy-policy")
+  );
+}
+
 // display the date of the post
 export function formatDate(date: string, includeRelative = false) {
   const currentDate = new Date();
