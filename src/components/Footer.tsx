@@ -1,11 +1,18 @@
+"use client";
+
 import React from "react";
 import { Icons } from "./icons";
 import { POSTS } from "@/lib/constants";
 import Link from "next/link";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { createSubscriber } from "@/lib/actions";
+import { useFormState } from "react-dom";
 
 function Footer() {
+  const initinialState = { message: "", errors: {} };
+  const [state, dispatch] = useFormState(createSubscriber, initinialState);
+
   return (
     <footer className="bg-gray-200 py-8 dark:bg-gray-800 mt-10">
       <div className="container mx-auto px-4 md:px-6">
@@ -82,22 +89,43 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-md font-semibold">Newsletter</h3>
             <p className="text-gray-500 dark:text-gray-400 text-sm">
-              {" "}
-              Subscribe to my newsletter to stay up-to-date with the latest news
-              and updates.
+              Not sure what I will send you, but it will be good
             </p>
-            <form className="flex space-x-2">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1"
-              />
-              <Button>Subscribe!</Button>
+            <form action={dispatch}>
+              <div className="flex space-x-2">
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  className="flex-1 dark:bg-black bg-white"
+                  defaultValue=""
+                  aria-describedby="email-error"
+                />
+                <Button>Subscribe!</Button>
+              </div>
+              <div
+                id="email-error"
+                aria-label="polite"
+                aria-atomic="true"
+                className="px-1"
+              >
+                {state?.errors?.email &&
+                  state.errors.email.map((error) => (
+                    <p key={error} className="text-red-500 text-sm mt-1">
+                      {error}
+                    </p>
+                  ))}
+                {!state?.errors?.email && (
+                  <p className="text-green-500 text-sm mt-1">
+                    {state?.message}
+                  </p>
+                )}
+              </div>
             </form>
           </div>
         </div>
         <div className="mt-8 border-t border-gray-200 pt-4 text-center text-xs text-gray-500 dark:border-gray-700 dark:text-gray-400">
-          {" "}
           &copy; 2025 Carneiro. All rights reserved.
         </div>
       </div>
