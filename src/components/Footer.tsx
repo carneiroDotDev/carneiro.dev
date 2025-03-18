@@ -1,17 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useActionState } from "react";
 import { Icons } from "./icons";
 import { POSTS } from "@/lib/constants";
 import Link from "next/link";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { createSubscriber } from "@/lib/actions";
-import { useFormState } from "react-dom";
 
 function Footer() {
   const initinialState = { message: "", errors: {} };
-  const [state, dispatch] = useFormState(createSubscriber, initinialState);
+  const [state, dispatch] = useActionState(createSubscriber, initinialState);
 
   return (
     <footer className="bg-gray-200 py-8 dark:bg-gray-800 mt-10">

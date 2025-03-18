@@ -3,7 +3,7 @@ import PageContainer from "@/components/PageContainer";
 import RenderMDX from "@/components/RenderMDX";
 import { getPrivacyPolicy } from "../blog/utils";
 
-export default function TermsOfServices() {
+export default function PrivacyPolicy() {
   const post = getPrivacyPolicy().find(
     (post) => post.slug === "privacy-policy"
   );
