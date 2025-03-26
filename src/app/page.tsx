@@ -13,8 +13,8 @@ export default function Home() {
           <div>
             <LatestPosts />
           </div>
-          <div className="h-screen">
-            <div className="">
+          <div className="lg:h-screen md:h-screen">
+            <div>
               <h1 className="font-bold mb-4">Top Posts</h1>
               <TopCategories />
             </div>

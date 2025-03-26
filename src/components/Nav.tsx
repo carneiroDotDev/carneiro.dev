@@ -20,9 +20,7 @@ import { POSTS } from "@/lib/constants";
 export function Nav() {
   return (
     <div
-      className={cn(
-        "flex flex-col items-start justify-start md:flex-row md:items-center md:justify-between pt-10 z-50"
-      )}
+      className={cn("flex flex-row items-center justify-between pt-10 z-50")}
     >
       <Link href={"/"}>
         <div className="flex items-center justify-between w-32">
