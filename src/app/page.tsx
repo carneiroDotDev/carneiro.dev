@@ -13,7 +13,7 @@ export default function Home() {
           <div>
             <LatestPosts />
           </div>
-          <div className="md:h-screen">
+          <div className="md:h-screen w-[350px]">
             <div>
               <section className="font-bold mb-4">Posts category</section>
               <TopCategories />

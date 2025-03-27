@@ -8,7 +8,7 @@ export default function robots() {
         allow: "/",
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${baseUrl}/sitemap.xml/`,
     index: true,
     follow: true,
     googleBot: {
