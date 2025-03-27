@@ -1,0 +1,86 @@
+---
+title: "Making Keys Optional in TypeScript Interfaces"
+publishedAt: "2025-03-27"
+summary: "In this post, we’ll walk through different ways to make a key optional in a TypeScript interface, leading to a reusable utility type."
+category: "typescript"
+---
+
+In TypeScript, interfaces define the shape of an object. By default, all properties in an interface are required unless explicitly marked as optional. In this post, we’ll explore different ways to make a key optional and build a reusable utility type for it.
+
+## Making a Key Optional 🎯
+
+Let's start with a simple `user` interface:
+
+```ts
+type user = {
+  name: string;
+  lastName: string;
+};
+```
+
+### Using `Partial` 💡
+
+One common approach is to use TypeScript’s built-in `Partial<T>` utility type, which makes all properties of `T` optional:
+
+```ts
+type PartialUser = Partial<user>;
+```
+
+This works, but what if we only want to make a specific property optional? For example, we may want to make only `lastName` optional while keeping `name` required.
+
+### Omitting a Key 🔍
+
+To remove a specific key from an interface, we can use the `Pick` and `Exclude` utility types:
+
+```ts
+type Omitee<Interface, Key extends keyof Interface> = Pick<
+  Interface,
+  Exclude<keyof Interface, Key>
+>;
+```
+
+This creates a new type that includes all keys from `Interface` except for the specified `Key`. For example:
+
+```ts
+type UserWithoutLastName = Omitee<user, "lastName">;
+```
+
+Now, `UserWithoutLastName` contains only the `name` property.
+
+### Making a Key Optional ⚡
+
+To achieve our goal—keeping `name` required while making `lastName` optional—we combine `Omitee` with `Partial`:
+
+```ts
+type MakeItOptional<Interface, Key extends keyof Interface> = Omitee<
+  Interface,
+  Key
+> &
+  Partial<Pick<Interface, Key>>;
+```
+
+Breaking this down:
+
+- `Omitee<Interface, Key>` removes the specified key.
+- `Partial<Pick<Interface, Key>>` picks only the specified key and makes it optional.
+- Combining both (`&`) merges the results, preserving required keys while making the selected key optional.
+
+Now, let's apply it to our `user` type:
+
+```ts
+type userNoLastName = MakeItOptional<user, "lastName">;
+```
+
+We can now use this type with an object:
+
+```ts
+const luiz: userNoLastName = {
+  name: "Luiz",
+};
+```
+
+This works perfectly—`name` is still required, but `lastName` is now optional.
+
+### Conclusion 🏆
+
+By using TypeScript’s utility types, we can create reusable and flexible types that allow us to selectively make keys optional. The `MakeItOptional` type provides an elegant solution, making it easy to modify interfaces dynamically while keeping TypeScript’s strong type safety intact.

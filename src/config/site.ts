@@ -29,7 +29,7 @@ export const siteConfig: ISiteConfig = {
   links: {
     github: "https://www.github.com/carneirodotdev",
     linkedin: "https://www.linkedin.com/in/carneirodotdev/",
-    twitter: "https://twitter.com/carneiroDotDev",
+    twitter: "https://x.com/carneiroDotDev",
   },
   handlers: {
     github: "@carneiroDotDev",

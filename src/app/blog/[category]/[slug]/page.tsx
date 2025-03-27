@@ -43,9 +43,6 @@ export async function generateMetadata({
       title
     )}&description=${encodeURIComponent(description)}`;
 
-  console.log(image);
-  console.log(ogImage);
-
   return {
     title,
     description,

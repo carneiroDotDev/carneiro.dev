@@ -14,8 +14,12 @@ export async function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: { params: { category: string } }) {
-  const { category } = params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const { category } = await params;
   return {
     title: `${category} by Luiz Carneiro Blog`,
     description: `Posts about ${category} on Luiz Carneiro Blog`,

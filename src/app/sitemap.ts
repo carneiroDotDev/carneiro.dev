@@ -6,7 +6,7 @@ export const baseUrl = "https://www.carneiro.dev";
 export default async function sitemap() {
   const blogPosts = getBlogPosts().map((post) => ({
     url: `${baseUrl}/blog/${post.metaData.category}/${post.slug}`,
-    lastmod: post.metaData.publishedAt,
+    lastModified: post.metaData.publishedAt,
   }));
 
   const routes = POSTS.map((route) => ({

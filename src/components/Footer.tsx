@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { createSubscriber } from "@/lib/actions";
+import { siteConfig } from "@/config/site";
 
 function Footer() {
   const initinialState = { message: "", errors: {} };
@@ -31,12 +32,28 @@ function Footer() {
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://x.com/carneirodotdev"
+                href={siteConfig.links.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Twitter"
+                aria-label="twitter profile"
               >
                 <Icons.twitter className="w-6 h-6 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:-translate-y-1 transition-all" />
+              </a>
+              <a
+                href={siteConfig.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="github profile"
+              >
+                <Icons.gitHub className="h-6 w-6 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:-translate-y-1 transition-all" />
+              </a>
+              <a
+                href={siteConfig.links.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="linkedin profile"
+              >
+                <Icons.linkedin className="h-6 w-6 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:-translate-y-1 transition-all" />
               </a>
             </div>
           </div>
