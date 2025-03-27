@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { formatDate } from "@/app/blog/utils";
 
 interface CardCategoryProps {
   title: string;
@@ -24,7 +23,7 @@ function CardCategory({ title, summary, date }: CardCategoryProps) {
         <p>{summary}</p>
       </CardContent>
       <CardFooter>
-        <p className="text-xs text-gray-500">{formatDate(date)}</p>
+        <p className="text-xs text-gray-500">{date}</p>
       </CardFooter>
     </Card>
   );

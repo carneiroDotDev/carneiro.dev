@@ -75,6 +75,10 @@ async function ArticlePage({
   if (!post) {
     notFound();
   }
+
+  // Format the date on the server side
+  const formattedDate = formatDate(post.metaData.publishedAt, true);
+
   return (
     <>
       <script
@@ -112,8 +116,11 @@ async function ArticlePage({
               {post.metaData.title}
             </h1>
             <div className="flex justify-between items-center mt-2 mb-4 text-sm">
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">
-                {formatDate(post.metaData.publishedAt, true)}
+              <p
+                className="text-sm text-neutral-600 dark:text-neutral-400 mt-2"
+                suppressHydrationWarning
+              >
+                {formattedDate}
               </p>
             </div>
           </>

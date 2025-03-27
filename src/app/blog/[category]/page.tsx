@@ -1,5 +1,5 @@
 import React from "react";
-import { getBlogPosts } from "../utils";
+import { formatDate, getBlogPosts } from "../utils";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import PageContainer from "@/components/PageContainer";
@@ -36,6 +36,28 @@ async function Page({ params }: { params: Promise<{ category: string }> }) {
     notFound();
   }
 
+  //I have been removing every render that has to do
+  //with dates from inside the return in order to
+  //aovoid hydration problems w diff btw client and server
+  const renderCards: Array<React.ReactElement> = posts
+    .sort((a, b) => {
+      if (new Date(a.metaData.publishedAt) > new Date(b.metaData.publishedAt)) {
+        return -1;
+      }
+      return 1;
+    })
+    .map((post) => (
+      <Link
+        href={`/blog/${post.metaData.category}/${post.slug}`}
+        key={`/blog/${post.slug}`}
+      >
+        <CardCategory
+          title={post.metaData.title}
+          summary={post.metaData.summary}
+          date={formatDate(post.metaData.publishedAt)}
+        />
+      </Link>
+    ));
   return (
     <>
       <Header>
@@ -47,28 +69,7 @@ async function Page({ params }: { params: Promise<{ category: string }> }) {
       </Header>
       <PageContainer>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
-          {posts
-            .sort((a, b) => {
-              if (
-                new Date(a.metaData.publishedAt) >
-                new Date(b.metaData.publishedAt)
-              ) {
-                return -1;
-              }
-              return 1;
-            })
-            .map((post) => (
-              <Link
-                href={`/blog/${post.metaData.category}/${post.slug}`}
-                key={`/blog/${post.slug}`}
-              >
-                <CardCategory
-                  title={post.metaData.title}
-                  summary={post.metaData.summary}
-                  date={post.metaData.publishedAt}
-                />
-              </Link>
-            ))}
+          {renderCards}
         </div>
       </PageContainer>
     </>

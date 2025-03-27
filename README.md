@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Carneiro.dev - Personal Blog
 
-## Getting Started
+Welcome to **Carneiro.dev**, my personal blog where I share insights, tutorials, and thoughts on software development, technology, and beyond.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Built with [Next.js](https://nextjs.org) for a fast and modern web experience.
+- Fully responsive design for seamless browsing on any device.
+- Optimized for SEO with custom `robots.txt` and sitemap generation.
+- Dynamic routing and static site generation for blazing-fast performance.
+- Styled with modern CSS for a clean and professional look.
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org)
+- **Styling**: Tailwind CSS
+- **Hosting**: [Vercel](https://vercel.com)
+- **Content**: Markdown-based blog posts
+- **Database**: Postgres + Prisma ORM (hosted on Neon)
+
+## 📂 Project Structure
+
+```
+src/
+├── app/                # Application routes and pages
+├── components/         # Reusable UI components
+├── styles/             # Global and component-specific styles
+├── public/             # Static assets (images, icons, etc.)
+└── utils/              # Utility functions and helpers
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚠️ Important Note
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Some features of this application, such as database-related functionality, require a `.env` file with the correct PostgreSQL connection details. Without this file, certain features fail, but most of the application should be available.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Example `.env` File
 
-## Learn More
+Here’s an example of the required `.env` file structure:
 
-To learn more about Next.js, take a look at the following resources:
+```properties
+DATABASE_URL=postgres://<username>:<password>@<host>/<database>?sslmode=require
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Make sure to replace `<username>`, `<password>`, `<host>`, and `<database>` with your actual database credentials.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚧 Development
 
-## Deploy on Vercel
+To run the project locally, follow these steps:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone the repository:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   git clone https://github.com/your-username/carneiro.dev.git
+   cd carneiro.dev
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env` file in the root directory with your database credentials.
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to view the blog.
+
+## 🌍 Deployment
+
+This blog is deployed on [Vercel](https://vercel.com). To deploy your own version:
+
+1. Push your code to a GitHub repository.
+2. Connect the repository to Vercel.
+3. Vercel will automatically build and deploy your site.
+
+For more details, check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying).
+
+## 📖 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
+
+Thank you for visiting **Carneiro.dev**! Feel free to explore, learn, and connect with me.
