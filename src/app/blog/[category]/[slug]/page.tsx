@@ -1,4 +1,4 @@
-import React, { ViewTransitionInstance } from "react";
+import React from "react";
 import { notFound } from "next/navigation";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { formatDate, getBlogPosts } from "@/app/blog/utils";
