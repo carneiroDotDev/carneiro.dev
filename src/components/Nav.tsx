@@ -57,7 +57,7 @@ export function Nav() {
       </NavigationMenu>
       <div className="flex items-center justify-between w-20">
         <DarkModeToggle />
-        <Link href="/rss">
+        <Link href="/rss" aria-label="RSS Feed">
           <Icons.rss className="w-6 h-6" />
         </Link>
       </div>

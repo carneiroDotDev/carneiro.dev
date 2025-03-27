@@ -1,6 +1,7 @@
-import React from "react";
-import { formatDate, getBlogPosts } from "@/app/blog/utils";
+import React, { ViewTransitionInstance } from "react";
 import { notFound } from "next/navigation";
+import { unstable_ViewTransition as ViewTransition } from "react";
+import { formatDate, getBlogPosts } from "@/app/blog/utils";
 import Header from "@/components/Header";
 import PageContainer from "@/components/PageContainer";
 import { Breadcrumb } from "@/components/BreadCrumb";
@@ -112,9 +113,11 @@ async function ArticlePage({
         <PageContainer>
           <>
             <Breadcrumb category={post.metaData.category} slug={post.slug} />
-            <h1 className="title font-semibold text-2xl mt-4">
-              {post.metaData.title}
-            </h1>
+            <ViewTransition name="post-title">
+              <h1 className="title font-semibold text-2xl mt-4">
+                {post.metaData.title}
+              </h1>
+            </ViewTransition>
             <div className="flex justify-between items-center mt-2 mb-4 text-sm">
               <p
                 className="text-sm text-neutral-600 dark:text-neutral-400 mt-2"

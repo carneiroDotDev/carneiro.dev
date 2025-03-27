@@ -58,7 +58,7 @@ function Footer() {
             </div>
           </div>
           <div className="space-y-4">
-            <h3 className="text-md font-semibold">Blog</h3>
+            <section className="text-md font-semibold">Blog</section>
             <ul className="space-y-2 text-sm">
               {POSTS.map((post) => (
                 <li key={`${post.title}_footer2`}>
@@ -73,7 +73,7 @@ function Footer() {
             </ul>
           </div>
           <div className="space-y-4">
-            <h3 className="text-md font-semibold">Links</h3>
+            <section className="text-md font-semibold">Links</section>
             <ul className="space-y-2 text-sm">
               <li>
                 <a
@@ -111,7 +111,7 @@ function Footer() {
             </ul>
           </div>
           <div className="space-y-4">
-            <h3 className="text-md font-semibold">Newsletter</h3>
+            <section className="text-md font-semibold">Newsletter</section>
             <p className="text-gray-500 dark:text-gray-400 text-sm">
               Not sure what I will send you, but it will be good
             </p>
@@ -125,12 +125,13 @@ function Footer() {
                   className="flex-1 dark:bg-black bg-white"
                   defaultValue=""
                   aria-describedby="email-error"
+                  autoComplete="email"
                 />
                 <Button>Subscribe!</Button>
               </div>
               <div
                 id="email-error"
-                aria-label="polite"
+                aria-live="polite"
                 aria-atomic="true"
                 className="px-1"
               >

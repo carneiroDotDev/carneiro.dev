@@ -13,13 +13,13 @@ export default function Home() {
           <div>
             <LatestPosts />
           </div>
-          <div className="lg:h-screen md:h-screen">
+          <div className="md:h-screen">
             <div>
-              <h1 className="font-bold mb-4">Top Posts</h1>
+              <section className="font-bold mb-4">Posts category</section>
               <TopCategories />
             </div>
             <div className="sticky mt-10 top-0">
-              <h2 className="font-bold mb-4">Popular Posts</h2>
+              <section className="font-bold mb-4">Popular Posts</section>
               <PopularPosts />
             </div>
           </div>

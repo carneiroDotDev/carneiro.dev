@@ -68,9 +68,9 @@ async function Page({ params }: { params: Promise<{ category: string }> }) {
         </PageContainer>
       </Header>
       <PageContainer>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
+        <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
           {renderCards}
-        </div>
+        </article>
       </PageContainer>
     </>
   );

@@ -14,15 +14,16 @@ function PopularPosts() {
   return (
     <ul className="overflow-auto">
       {data?.map((post) => (
-        <Link key={post.slug} href={`/blog/${post.category}/${post.slug}`}>
-          <li
-            key={post.title}
+        <li key={post.title}>
+          <Link
             className="flex items-center gap-2 cursor-pointer py-2 group"
+            key={post.slug}
+            href={`/blog/${post.category}/${post.slug}`}
           >
             <Icons.arrowRight className="h-6 w-6 group-hover:translate-x-1 transition-all" />
             <p>{post.title}</p>
-          </li>
-        </Link>
+          </Link>
+        </li>
       ))}
     </ul>
   );
