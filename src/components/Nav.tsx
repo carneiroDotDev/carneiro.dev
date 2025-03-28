@@ -23,8 +23,8 @@ export function Nav() {
       className={cn("flex flex-row items-center justify-between pt-10 z-50")}
     >
       <Link href={"/"}>
-        <div className="flex items-center justify-between w-32">
-          <Icons.orbit className="w-6 h-6" />
+        <div className="flex items-center justify-between w-32 group">
+          <Icons.orbit className="w-6 h-6 group-hover:animate-spin" />
           <p>Luiz Carneiro</p>
         </div>
       </Link>
@@ -58,7 +58,7 @@ export function Nav() {
       <div className="flex items-center justify-between w-20">
         <DarkModeToggle />
         <Link href="/rss" aria-label="RSS Feed">
-          <Icons.rss className="w-6 h-6" />
+          <Icons.rss className="w-6 h-6 hover:-translate-y-1 transition-all" />
         </Link>
       </div>
     </div>

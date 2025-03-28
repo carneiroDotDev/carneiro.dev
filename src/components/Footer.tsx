@@ -20,8 +20,8 @@ function Footer() {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <Link href={"/"}>
-                <div className="flex items-center space-x-2">
-                  <Icons.orbit className="w-6 h-6" />
+                <div className="flex items-center space-x-2 group">
+                  <Icons.orbit className="w-6 h-6 group-hover:animate-spin" />
                   <p>Luiz Carneiro</p>
                 </div>
               </Link>
