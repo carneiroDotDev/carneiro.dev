@@ -41,9 +41,9 @@ body {
     --sh-string: #007f7a;
     --sh-keyword: #e02518;
     --sh-comment: #a19595;
-    --sh-jsxliterals: #f47067;
-    --sh-property: #e25a1c;
-    --sh-entity: #e25a1c;
+    --sh-jsxliterals: #226104;
+    --sh-property: #ee5006;
+    --sh-entity: #0953f3;
   }
   .dark {
     --background: 20 14.3% 4.1%;

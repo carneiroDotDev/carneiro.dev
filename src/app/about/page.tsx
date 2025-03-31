@@ -1,5 +1,4 @@
 import PageContainer from "@/components/PageContainer";
-import Header from "@/components/Header";
 import { Nav } from "@/components/Nav";
 import { Metadata } from "next";
 
@@ -12,15 +11,8 @@ export default async function AboutPage() {
   return (
     <>
       <div className="bg-gray-100 dark:bg-gray-800">
-        <PageContainer>
-          <>
-            <Nav />
-            <Header>
-              <h1 className="title font-semibold text-2xl tracking-tighter mt-4 capitalize">
-                About Me
-              </h1>
-            </Header>
-          </>
+        <PageContainer className="pb-8">
+          <Nav />
         </PageContainer>
       </div>
       <PageContainer>
@@ -32,13 +24,8 @@ export default async function AboutPage() {
               </p>
             </div>
             <p className="text-muted-foreground text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum
+              {`You are quite lucky to be reading this because I am finishing this
+              page right now :)`}
             </p>
           </div>
         </div>

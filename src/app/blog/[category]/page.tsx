@@ -62,7 +62,7 @@ async function Page({ params }: { params: Promise<{ category: string }> }) {
     <>
       <Header>
         <PageContainer>
-          <h1 className="title font-semibold text-2xl tracking-wider mt-4 uppercase">
+          <h1 className="title font-semibold text-2xl mt-4 capitalize">
             {posts[0]?.metaData.category}
           </h1>
         </PageContainer>
