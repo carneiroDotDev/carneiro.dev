@@ -75,7 +75,12 @@ body {
     --sh-class: #4c97f8;
     --sh-identifier: white;
     --sh-keyword: #f47067;
-    --sh-string: #0fa295;
+    --sh-string: #0fa295; /* code highlight */
+    --sh-sign: #8995a3;
+    --sh-comment: #a19594;
+    --sh-jsxliterals: #f47066;
+    --sh-property: #e24a1c;
+    --sh-entity: #2ff108;
   }
 }
 

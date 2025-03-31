@@ -5,6 +5,8 @@ import Link from "next/link";
 import PageContainer from "@/components/PageContainer";
 import CardCategory from "@/components/CardCategory";
 import Header from "@/components/Header";
+import { baseUrl } from "@/app/sitemap";
+import { url } from "inspector";
 
 // Generate static pages from these dynamic routes
 export async function generateStaticParams() {
@@ -20,9 +22,28 @@ export async function generateMetadata({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
+
+  const ogImage = `${baseUrl}/og?title=${encodeURIComponent(category)}`;
+  const title = `${category} by Luiz Carneiro Blog`;
+  const description = `Posts about ${category} on Luiz Carneiro Blog`;
+  const url = `${baseUrl}/blog/${category}`;
+
   return {
-    title: `${category} by Luiz Carneiro Blog`,
-    description: `Posts about ${category} on Luiz Carneiro Blog`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      images: [{ url: ogImage }],
+      url,
+    },
+    twitter: {
+      cardType: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+    },
   };
 }
 
