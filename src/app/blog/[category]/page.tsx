@@ -6,7 +6,6 @@ import PageContainer from "@/components/PageContainer";
 import CardCategory from "@/components/CardCategory";
 import Header from "@/components/Header";
 import { baseUrl } from "@/app/sitemap";
-import { url } from "inspector";
 
 // Generate static pages from these dynamic routes
 export async function generateStaticParams() {
