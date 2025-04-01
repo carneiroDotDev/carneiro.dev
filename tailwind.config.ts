@@ -9,6 +9,23 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: [
+          "var(--font-bellota)",
+          "var(--font-geist-sans)",
+          "system-ui",
+          "sans-serif",
+        ],
+        title: [
+          "var(--font-bellota)",
+          "var(--font-geist-sans)",
+          "system-ui",
+          "sans-serif",
+        ],
+        // mono: ["var(--font-geist-mono)", "monospace"],
+        // serif: ["var(--font-geist-serif)", "serif"],
+        // open: ["var(--font-open-sans)", "system-ui", "sans-serif"],
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

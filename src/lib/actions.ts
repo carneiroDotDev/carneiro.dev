@@ -7,7 +7,7 @@ import { z } from "zod";
 
 const FormSchema = z.object({
   id: z.number(),
-  email: z.string().min(3, { message: "Email is required" }),
+  email: z.string().min(5, { message: "Email is required" }),
   isSubscribed: z.boolean(),
 });
 

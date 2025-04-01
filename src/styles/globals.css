@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif,
+    Helvetica, sans-serif;
+  font-weight: 300;
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 93%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
     --card-foreground: 20 14.3% 4.1%;
@@ -161,15 +163,15 @@ body {
 }
 
 .prose h2 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-xl font-normal mt-6 mb-2;
 }
 
 .prose h3 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-xl font-normal mt-6 mb-2;
 }
 
 .prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-2;
+  @apply text-lg font-normal mt-6 mb-2;
 }
 
 .prose strong {

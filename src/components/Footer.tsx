@@ -25,7 +25,7 @@ function Footer() {
               <Link href={"/"}>
                 <div className="flex items-center space-x-2 group">
                   <Icons.orbit className="w-6 h-6 group-hover:animate-spin" />
-                  <p>Luiz Carneiro</p>
+                  <p className="font-title font-bold">Luiz Carneiro</p>
                 </div>
               </Link>
             </div>
@@ -61,7 +61,7 @@ function Footer() {
             </div>
           </div>
           <div className="space-y-4">
-            <section className="text-md font-semibold">Blog</section>
+            <section className="text-md font-normal">Blog</section>
             <ul className="space-y-2 text-sm">
               {POSTS.map((post) => (
                 <li key={`${post.title}_footer2`}>
@@ -76,7 +76,7 @@ function Footer() {
             </ul>
           </div>
           <div className="space-y-4">
-            <section className="text-md font-semibold">Links</section>
+            <section className="text-md font-normal">Links</section>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="mailto:luiz@carneiro.dev" className={footerLinkStyles}>
@@ -102,7 +102,7 @@ function Footer() {
             </ul>
           </div>
           <div className="space-y-4">
-            <section className="text-md font-semibold">Newsletter</section>
+            <section className="text-md font-normal">Newsletter</section>
             <p className="text-gray-700 dark:text-gray-400 text-sm">
               Not sure what I will send you, but it will be good
             </p>
@@ -141,8 +141,10 @@ function Footer() {
             </form>
           </div>
         </div>
-        <div className="mt-8 border-t border-gray-200 pt-4 text-center text-xs text-gray-700 dark:border-gray-700 dark:text-gray-400">
-          &copy; 2025 Carneiro. All rights reserved.
+        <div className="mt-8 border-t border-gray-200 pt-4 text-center text-xs dark:border-gray-700">
+          <p className="font-title text-black dark:text-gray-200">
+            &copy; 2025 Carneiro. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

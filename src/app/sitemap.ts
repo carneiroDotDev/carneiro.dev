@@ -14,5 +14,9 @@ export default async function sitemap() {
     lastModified: new Date().toISOString().split("T")[0],
   }));
 
-  return [...blogPosts, ...routes];
+  return [
+    ...blogPosts,
+    ...routes,
+    { url: baseUrl, lastModified: new Date().toISOString().split("T")[0] },
+  ];
 }

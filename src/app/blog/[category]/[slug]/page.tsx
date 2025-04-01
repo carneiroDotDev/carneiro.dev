@@ -115,7 +115,7 @@ async function ArticlePage({
           <>
             <Breadcrumb category={post.metaData.category} slug={post.slug} />
             <ViewTransition name="post-title">
-              <h1 className="title font-semibold text-2xl mt-4">
+              <h1 className="font-normal text-2xl mt-4">
                 {post.metaData.title}
               </h1>
             </ViewTransition>

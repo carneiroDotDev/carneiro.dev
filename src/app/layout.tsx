@@ -1,11 +1,37 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Ubuntu,
+  Bellota,
+  Geist,
+  Geist_Mono,
+  Open_Sans,
+} from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
 import { siteAuthors, siteConfig, siteKeywords } from "@/config/site";
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
+const ubuntu = Ubuntu({
+  variable: "--font-ubuntu",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "700"],
+  style: ["normal", "italic"],
+  fallback: ["system-ui", "sans-serif"],
+  preload: true,
+});
+
+const bellota = Bellota({
+  variable: "--font-bellota",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "700"],
+  style: ["normal", "italic"],
+  fallback: ["system-ui", "sans-serif"],
+  preload: true,
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,6 +40,11 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const openSans = Open_Sans({
+  variable: "--font-open-sans",
   subsets: ["latin"],
 });
 
@@ -64,7 +95,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${ubuntu.variable} ${bellota.variable} ${geistSans.variable} ${geistMono.variable} ${openSans.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -73,6 +104,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="flex-1">{children}</main>
+          <SpeedInsights />
           <Analytics />
           <Footer />
         </ThemeProvider>

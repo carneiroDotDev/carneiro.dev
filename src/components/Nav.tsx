@@ -25,7 +25,7 @@ export function Nav() {
       <Link href={"/"}>
         <div className="flex items-center justify-between w-32 group">
           <Icons.orbit className="w-6 h-6 group-hover:animate-spin" />
-          <p>Luiz Carneiro</p>
+          <p className="font-title font-bold">Luiz Carneiro</p>
         </div>
       </Link>
       <NavigationMenu>
