@@ -41,7 +41,7 @@ export default async function AboutPage() {
             </p>
             <p className="text-md text-gray-900 dark:text-gray-200 mt-4">
               Beyond coding, I actively contribute to the tech community as an
-              organizer of{" "}
+              organizer of the{" "}
               <a
                 href="https://gdg.community.dev/gdg-cloud-munich/"
                 target="_blank"
@@ -50,17 +50,17 @@ export default async function AboutPage() {
                 GDG Cloud Munich
               </a>
               , a growing developer group with over 2.100 members, fostering
-              knowledge-sharing and networking in cloud technologies.
+              knowledge-sharing and networking in cloud technologies ☁️
             </p>
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-center w-[550] h-[350]">
             <Image
               src="/luizCarneiro.jpg"
               alt="Luiz Carneiro's photo"
-              className="rounded-sm shadow-lg"
+              className="rounded-sm shadow-lg bg-cover"
               width={500}
               height={1000}
-              loading="lazy"
+              priority
               quality={100}
             />
           </div>
