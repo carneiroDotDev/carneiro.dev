@@ -9,11 +9,11 @@ export default function Home() {
     <PageContainer>
       <>
         <Nav />
-        <main className="flex flex-col items-start justify-evenly mt-16 md:flex-row">
+        <main className="flex flex-col items-center justify-evenly mt-16 px-2 sm:px-0 md:flex-row md:items-start">
           <div>
             <LatestPosts />
           </div>
-          <div className="md:h-screen w-[350px]">
+          <div className="md:pl-8 md:h-screen max-w-[350px]">
             <div>
               <section className="font-normal mb-4">Posts category</section>
               <TopCategories />

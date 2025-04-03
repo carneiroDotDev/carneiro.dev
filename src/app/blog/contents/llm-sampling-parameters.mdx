@@ -1,0 +1,121 @@
+---
+title: "Understanding Temperature, Top-p, and Top-k in LLMs"
+publishedAt: "2025-04-03"
+summary: "Learn how temperature, top-p, and top-k affect the behavior of large language models (LLMs) and how to configure them using the Python Gemini API."
+category: "aiengineering"
+---
+
+Large Language Models (LLMs) like GPT-4 use sampling techniques to generate text. Parameters such as `temperature`, `top-p`, and `top-k` play a crucial role in controlling the randomness and diversity of the generated output. In this post, we’ll explore these parameters, their effects, and how to configure them using the Python Gemini API.
+
+## Temperature 🌡️
+
+The `temperature` parameter controls the randomness of the model's output. It adjusts the probability distribution of the next token:
+
+- **Low temperature (e.g., 0.2)**: Makes the output more deterministic and focused. The model is more likely to choose high-probability tokens.
+- **High temperature (e.g., 1.0 or above)**: Increases randomness, leading to more creative but less predictable outputs.
+
+### Example with Gemini API
+
+In the Gemini API, you can set the `temperature` parameter to control randomness:
+
+```python
+from gemini import GeminiClient
+
+client = GeminiClient(api_key="your_api_key")
+
+response = client.generate(
+    prompt="Write a short story about a robot learning to cook.",
+    temperature=0.7  # Adjust randomness
+)
+
+print(response.text)
+```
+
+If you set `temperature=0`, the model will behave deterministically, always choosing the most likely token.
+
+---
+
+## Top-p (Nucleus Sampling) 🎯
+
+The `top-p` parameter (also known as nucleus sampling) controls the cumulative probability of the tokens considered for generation:
+
+- **Low `top-p` (e.g., 0.1)**: Limits the model to only the most probable tokens, making the output more focused.
+- **High `top-p` (e.g., 0.9)**: Includes a wider range of tokens, increasing diversity.
+
+When `top-p=1.0`, all tokens are considered, effectively disabling nucleus sampling.
+
+### Example with Gemini API
+
+You can set `top-p` in the Gemini API to control the diversity of the output:
+
+```python
+response = client.generate(
+    prompt="Explain the concept of entropy in physics.",
+    top_p=0.9  # Include 90% of the cumulative probability
+)
+
+print(response.text)
+```
+
+- **0.9** means **_Include 90% of the cumulative probability_**.
+
+---
+
+## Top-k 🔢
+
+The `top-k` parameter limits the number of tokens considered for generation to the top `k` most probable tokens:
+
+- **Low `top-k` (e.g., 10)**: Restricts the model to a small set of high-probability tokens, reducing randomness.
+- **High `top-k` (e.g., 50 or 100)**: Allows more tokens to be considered, increasing diversity.
+
+When `top-k=0`, this parameter is effectively disabled, and all tokens are considered.
+
+### Example with Gemini API
+
+The Gemini API does not currently support setting `top-k` directly. However, if supported in the future, it would _PROBABLY_ look something like this:
+
+```python
+response = client.generate(
+    prompt="Describe the lifecycle of a star.",
+    top_k=50  # Consider the top 50 tokens
+)
+
+print(response.text)
+```
+
+For now, you can combine `temperature` and `top-p` to achieve similar effects.
+
+---
+
+## Combining Parameters 🛠️
+
+You can combine `temperature`, `top-p`, and `top-k` to fine-tune the model's behavior. For example:
+
+- Use a **low temperature** with a **low top-p** for focused and deterministic outputs.
+- Use a **high temperature** with a **high top-p** for creative and diverse outputs.
+
+### Example with Gemini API
+
+```python
+response = client.generate(
+    prompt="What are the ethical implications of AI in healthcare?",
+    temperature=0.8,  # Add some randomness
+    top_p=0.85        # Include 85% of the cumulative probability
+)
+
+print(response.text)
+```
+
+---
+
+## Key Notes ⚠️
+
+- **`temperature` and `top-p` are supported in the Gemini API**, but `top-k` is not currently configurable.
+- Setting both `temperature` and `top-p` together allows for fine-grained control over the output.
+- Experiment with these parameters to find the right balance between creativity and focus for your use case.
+
+---
+
+## Conclusion 🏆
+
+Understanding and configuring `temperature`, `top-p`, and `top-k` can significantly impact the behavior of LLMs. By adjusting these parameters, you can tailor the model's output to suit your specific needs, whether it's generating deterministic responses or exploring creative possibilities. The Gemini API makes it easy to experiment with these settings and unlock the full potential of LLMs.

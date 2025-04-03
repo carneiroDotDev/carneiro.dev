@@ -1,18 +1,18 @@
 import { Nav } from "@/components/Nav";
 import PageContainer from "@/components/PageContainer";
 import RenderMDX from "@/components/RenderMDX";
-import { getTermsOfServices } from "../blog/utils";
+import { getPrivacyPolicy } from "@/app/blog/utils";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Services",
+  title: "Privacy Policy",
   description:
-    "This is the terms of services page of carneiro.dev by Luiz Carneiro",
+    "This is the privacy policy page of carneiro.dev by Luiz Carneiro",
 };
 
-export default function TermsOfServices() {
-  const post = getTermsOfServices().find(
-    (post) => post.slug === "terms-of-services"
+export default function PrivacyPolicy() {
+  const post = getPrivacyPolicy().find(
+    (post) => post.slug === "privacy-policy"
   );
   return (
     <PageContainer>

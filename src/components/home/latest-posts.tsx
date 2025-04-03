@@ -7,7 +7,7 @@ export default function LatestPosts() {
   return (
     <>
       <h1 className="inline-block font-bold font-title text-4xl tracking-tight lg:text-5xl">
-        Recently Published
+        {"I've written this:"}
       </h1>
       {latestPosts
         .sort((a, b) => {

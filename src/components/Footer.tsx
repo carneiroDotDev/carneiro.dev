@@ -83,7 +83,7 @@ function Footer() {
                   Contact
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/terms-of-services" className={footerLinkStyles}>
                   Terms of Services
                 </Link>
@@ -93,7 +93,7 @@ function Footer() {
                 <Link href="/privacy-policy" className={footerLinkStyles}>
                   Privacy Policy
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href="/sitemap.xml/" className={footerLinkStyles}>
                   Sitemap

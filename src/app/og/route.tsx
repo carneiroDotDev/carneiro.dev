@@ -3,6 +3,7 @@ import { ImageResponse } from "next/og";
 export function GET(request: Request) {
   const url = new URL(request.url);
   const title = url.searchParams.get("title") || "Carneiro.dev";
+  const [mainTitle, subTitle] = title.split(" - ");
 
   try {
     return new ImageResponse(
@@ -14,57 +15,181 @@ export function GET(request: Request) {
             width: "100%",
             alignItems: "center",
             justifyContent: "center",
-            letterSpacing: "-.02em",
-            fontWeight: 700,
-            background: "white",
+            position: "relative",
+            background: "linear-gradient(135deg, #DBDBDB, #A08963)",
+            fontFamily: "'Inter', sans-serif",
           }}
         >
+          {/* Colorful Circles */}
           <div
             style={{
-              left: 42,
-              top: 42,
               position: "absolute",
-              display: "flex",
-              alignItems: "center",
+              width: 300,
+              height: 300,
+              background: "#706D54",
+              borderRadius: "50%",
+              top: 50,
+              left: 100,
+              zIndex: 0,
             }}
-          >
-            <span
-              style={{
-                width: 240,
-                height: 24,
-                background: "black",
-                color: "white",
-                padding: "2px 25px 2px 2px",
-              }}
-            >
-              Luiz Carneiro
-            </span>
-            <span
-              style={{
-                marginLeft: 8,
-                fontSize: 20,
-              }}
-            >
-              carneiro.dev
-            </span>
-          </div>
+          />
           <div
             style={{
+              position: "absolute",
+              width: 200,
+              height: 200,
+              background: "#A08963",
+              borderRadius: "50%",
+              top: 300,
+              left: 400,
+              zIndex: 0,
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              width: 250,
+              height: 250,
+              background: "#C9B194",
+              borderRadius: "50%",
+              top: 150,
+              right: 150,
+              zIndex: 0,
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              width: 150,
+              height: 150,
+              background: "#DBDBDB",
+              borderRadius: "50%",
+              top: 400,
+              right: 300,
+              zIndex: 0,
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              width: 100,
+              height: 100,
+              background: "#706D54",
+              borderRadius: "50%",
+              top: 100,
+              right: 50,
+              zIndex: 0,
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              width: 180,
+              height: 180,
+              background: "#A08963",
+              borderRadius: "50%",
+              bottom: 100,
+              left: 200,
+              zIndex: 0,
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              width: 220,
+              height: 220,
+              background: "#C9B194",
+              borderRadius: "50%",
+              bottom: 50,
+              right: 100,
+              zIndex: 0,
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              width: 140,
+              height: 140,
+              background: "#DBDBDB",
+              borderRadius: "50%",
+              bottom: 200,
+              left: 300,
+              zIndex: 0,
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              width: 160,
+              height: 160,
+              background: "#706D54",
+              borderRadius: "50%",
+              top: 250,
+              left: 250,
+              zIndex: 0,
+            }}
+          />
+
+          {/* Content */}
+          <div
+            style={{
+              position: "relative",
+              zIndex: 1,
               display: "flex",
-              flexWrap: "wrap",
+              flexDirection: "column",
+              alignItems: "center",
               justifyContent: "center",
-              padding: "20px 50px",
-              margin: "0 42px",
-              fontSize: 40,
-              width: "auto",
-              maxWidth: 550,
               textAlign: "center",
-              backgroundColor: "black",
               color: "white",
-              lineHeight: 1.4,
+              padding: "20px",
+              background: "rgba(0, 0, 0, 0.8)", // Higher opacity for better readability
+              borderRadius: "16px",
             }}
           >
-            {title}
+            {/* Name and Website */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: 20,
+                fontSize: 24,
+                fontWeight: 700,
+              }}
+            >
+              <span
+                style={{
+                  background: "black",
+                  color: "white",
+                  padding: "5px 15px",
+                  borderRadius: "8px",
+                }}
+              >
+                carneiro.dev
+              </span>
+            </div>
+
+            {/* Title */}
+            <div
+              style={{
+                fontSize: 48,
+                fontWeight: 700,
+                lineHeight: 1.2,
+                maxWidth: 800,
+              }}
+            >
+              {mainTitle}
+            </div>
+            {subTitle && (
+              <div
+                style={{
+                  fontSize: 32,
+                  fontWeight: 500,
+                  marginTop: 10,
+                }}
+              >
+                {subTitle}
+              </div>
+            )}
           </div>
         </div>
       ),
