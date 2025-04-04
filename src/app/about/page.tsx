@@ -53,7 +53,7 @@ export default async function AboutPage() {
               knowledge-sharing and networking in cloud technologies ☁️
             </p>
           </div>
-          <div className="flex justify-center w-[550] h-[350]">
+          <div className="flex justify-center w-max-550 h-max-350">
             <Image
               src="/luizCarneiro.jpg"
               alt="Luiz Carneiro's photo"

@@ -18,8 +18,8 @@ function Footer() {
 
   return (
     <footer className="bg-gray-200 py-8 dark:bg-gray-800 mt-10">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+      <div className="container mx-auto px-6 md:px-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <Link href={"/"}>
@@ -107,18 +107,22 @@ function Footer() {
               Not sure what I will send you, but it will be good
             </p>
             <form action={dispatch}>
-              <div className="flex space-x-2">
+              <div className="flex space-x-2 md:flex-col md:gap-2">
                 <Input
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="Enter your email"
-                  className="flex-1 dark:bg-black bg-white"
+                  placeholder="Your email"
+                  className="flex-1 dark:bg-black bg-white 
+                  placeholder:text-gray-600
+                  dark:placeholder:text-gray-200 text-black-900 dark:text-gray-200 focus:ring-0 focus:border-gray-300 dark:focus:border-gray-600 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm"
                   defaultValue=""
                   aria-describedby="email-error"
                   autoComplete="email"
                 />
-                <Button>Subscribe!</Button>
+                <Button className="cursor-pointer md:max-w-[100px] md:self-end hover:scale-105 transition-all">
+                  Subscribe!
+                </Button>
               </div>
               <div
                 id="email-error"
