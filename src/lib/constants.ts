@@ -5,8 +5,8 @@ export const POSTS: { title: string; href: string; description: string }[] = [
     description: "Type tricks made simple",
   },
   {
-    title: "AI Engineering",
-    href: "/blog/aiengineering",
+    title: "AI",
+    href: "/blog/ai",
     description: "Let's learn AI together",
   },
 ];

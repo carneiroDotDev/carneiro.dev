@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -22,9 +22,6 @@ export default {
           "system-ui",
           "sans-serif",
         ],
-        // mono: ["var(--font-geist-mono)", "monospace"],
-        // serif: ["var(--font-geist-serif)", "serif"],
-        // open: ["var(--font-open-sans)", "system-ui", "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",
@@ -76,11 +73,10 @@ export default {
     },
   },
   plugins: [
-    require("tailwindcss-animate"),
     function ({
       addVariant,
     }: {
-      addVariant: (str: string, str2: string) => { [key: string]: string };
+      addVariant: (name: string, variant: string | string[]) => void;
     }) {
       /**
        * Uses system default preference.
