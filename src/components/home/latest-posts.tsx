@@ -19,7 +19,7 @@ export default function LatestPosts() {
           return 1;
         })
         .map((post) => {
-          const formattedDate = formatDate(post.metaData.publishedAt, true);
+          const formattedDate = formatDate(post.metaData.publishedAt);
           return (
             <article key={post.slug} className="text-wrap max-w-md my-10 group">
               <Link href={`/blog/${post.metaData.category}/${post.slug}`}>
@@ -29,7 +29,7 @@ export default function LatestPosts() {
                   </h2>
                 </ViewTransition>
                 <p className="leading-8 my-5">{post.metaData.summary}</p>
-                <p className="text-sm text-muted-foreground text-gray-800 dark:text-white">
+                <p className="text-sm text-gray-800 dark:text-white">
                   {formattedDate}
                 </p>
               </Link>
