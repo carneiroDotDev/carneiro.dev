@@ -1,22 +1,22 @@
 # Carneiro.dev - Personal Blog
 
-Welcome to **Carneiro.dev**, my personal blog where I share insights, tutorials, and thoughts on software development, technology, and beyond.
+my main sandbox where I share thoughts on software development. I also use it to test new things in web development. 
 
 ## 🚀 Features
 
-- Built with [Next.js](https://nextjs.org) for a fast and modern web experience.
-- Fully responsive design for seamless browsing on any device.
+- Built with [Next.js](https://nextjs.org) for rendering of static pages and cache management (SEO optimized).
+- Fully responsive design, and of course, Dark Mode because it is 2025.
 - Optimized for SEO with custom `robots.txt` and sitemap generation.
-- Dynamic routing and static site generation for blazing-fast performance.
-- Styled with modern CSS for a clean and professional look.
+- Dynamic routing with static site generation for blazing-fast performance.
+- Styled with TailwindCSS because I need to get better at it. 
 
 ## 🛠️ Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org)
 - **Styling**: Tailwind CSS
 - **Hosting**: [Vercel](https://vercel.com)
-- **Content**: Markdown-based blog posts
-- **Database**: Postgres + Prisma ORM (hosted on Neon)
+- **Content**: Markdown-based blog posts - No CDN and not planning to implement one.
+- **Database**: Postgres + Prisma ORM (hosted on Neon - serverless)
 
 ## 📂 Project Structure
 
@@ -86,4 +86,4 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 ---
 
-Thank you for visiting **Carneiro.dev**! Feel free to explore, learn, and connect with me.
+Thank you for visiting **Carneiro.dev**! Feel free to let me know what you think, and connect with me :)
