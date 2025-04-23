@@ -30,8 +30,9 @@ function Footer() {
               </Link>
             </div>
             <p className="text-gray-700 dark:text-gray-400 text-sm">
-              If Putin was born in Brasil, he would be too busy drinking caipi
-              🍹
+              <span>- What do a punching bag and a cache have in common?</span>
+              <br />
+              <span>- They can both take a hit!🥊</span>
             </p>
             <div className="flex space-x-4">
               <a
