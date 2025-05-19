@@ -1,0 +1,244 @@
+---
+title: "GOtchas in Go #1/10: Vars, Funcs, Structs, and the Interface Scam"
+publishedAt: "2025-05-19"
+summary: "First post of a 10-part series where I dive into Golang. This one covers variables, functions, structs, and the true nature of interfaces compared to TypeScript."
+category: "golang"
+# image: "/images/blog/gotchas-in-go-01-vars-funcs-structs-interfaces.png"
+---
+
+{/* ![Go mascot (gopher) in a martial arts outfit, ready to teach you Go programming](/images/blog/gotchas-in-go-01-vars-funcs-structs-interfaces.png) */}
+
+Welcome to **GOtchas in Go**, a ten-part saga where I take on Golang and document the process. This is post 1 of 10. If you've been traumatized by loosely typed JavaScript or overly typed TypeScript, welcome. Go sits somewhere else entirely.
+
+In this first post, we'll go over:
+
+- Variable declaration
+- Printing messages
+- Writing functions
+- Structs and how they compare to TypeScript types
+- Interfaces in Go vs TypeScript
+- How interfaces work with functions
+- Declaring a type that satisfies an interface
+
+Let's GO.
+
+---
+
+## Variables 🧪
+
+Go makes you declare things. It's not happy guessing.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var name string = "Carneiro"
+    age := 30  // short-hand, Go figures the type
+    fmt.Println(name, age)
+}
+```
+
+`var` is explicit. `:=` is lazy. Choose your fighter. But only inside functions. Outside, you have to use `var`.
+
+```go
+var planet = "Earth"
+```
+
+Go will infer the type unless you need to be specific. But you can do this:
+
+```go
+var id int = 42
+```
+
+---
+
+## Functions ⚙️
+
+Functions look like this:
+
+```go
+func greet(name string) string {
+    return "Hello, " + name
+}
+```
+
+Multiple returns? Go says yes:
+
+```go
+func divide(a, b float64) (float64, error) {
+    if b == 0 {
+        return 0, fmt.Errorf("division by zero")
+    }
+    return a / b, nil
+}
+```
+
+No exceptions. You return errors manually. Which is weird until it isn't.
+
+---
+
+## Structs vs TypeScript Types 🧱
+
+You're used to this in TypeScript:
+
+```typescript
+type User = {
+  name: string;
+  age: number;
+};
+```
+
+Here's the Go version:
+
+```go
+type User struct {
+    Name string
+    Age int
+}
+```
+
+Note: Fields starting with uppercase letters are **exported** (public). Lowercase is private. Go does not have `public` or `private` keywords. It just yells at you softly.
+
+You instantiate a struct like this:
+
+```go
+user := User{Name: "Alice", Age: 25}
+```
+
+Or like this:
+
+```go
+var user User
+user.Name = "Bob"
+user.Age = 32
+```
+
+You want to print it?
+
+```go
+fmt.Printf("%+v\n", user) // shows field names and values
+```
+
+---
+
+## Interfaces in Go vs TypeScript 🤔
+
+In TypeScript:
+
+```typescript
+interface Greeter {
+  greet(): string;
+}
+
+class Person implements Greeter {
+  greet() {
+    return "Hello";
+  }
+}
+```
+
+Go looks like this:
+
+```go
+type Greeter interface {
+    Greet() string
+}
+
+type Person struct {
+    Name string
+}
+
+func (p Person) Greet() string {
+    return "Hello, I am " + p.Name
+}
+```
+
+Two things to notice:
+
+1. Go interfaces are **implicit**. `Person` doesn't say "I implement Greeter." If it has a `Greet() string` method, it **is** a `Greeter`.
+2. You don't use classes. Structs plus methods = close enough.
+
+This works:
+
+```go
+func sayHello(g Greeter) {
+    fmt.Println(g.Greet())
+}
+
+func main() {
+    p := Person{Name: "Ada"}
+    sayHello(p) // no explicit implementation needed
+}
+```
+
+That's it. You build your types and Go just checks if they match the interface. No formal contracts. Just vibes and signatures.
+
+---
+
+## Functions as Interfaces 🎭
+
+You can define interfaces that expect function-like behavior. For example:
+
+```go
+type MathOp interface {
+    Operate(a, b int) int
+}
+```
+
+And then you build types that satisfy it:
+
+```go
+type Adder struct{}
+
+func (Adder) Operate(a, b int) int {
+    return a + b
+}
+```
+
+Or use it more flexibly with functions as fields:
+
+```go
+type Operation struct {
+    Apply func(int, int) int
+}
+
+func main() {
+    op := Operation{
+        Apply: func(a, b int) int {
+            return a * b
+        },
+    }
+    fmt.Println(op.Apply(2, 3)) // 6
+}
+```
+
+But no, you can't assign a raw function to an interface unless it's declared as a `type`. You'll get bit by the type checker.
+
+---
+
+## Summary 📚
+
+You've seen:
+
+- How variables work, and when Go wants a `var`
+- The syntax for defining and using functions
+- Structs and how they replace TypeScript types
+- Interfaces that don't need to be declared, just satisfied
+- How structs and interfaces interact
+- And how functions sneak into interface land
+
+Go doesn't try to be clever. It just wants you to be explicit. Unless you're implementing interfaces. Then it's all implied.
+
+---
+
+## What's Next? 🔜
+
+Post 2 will cover:
+
+- Error handling (with more details)
+- Maps
+- Pointers (yeah, _that_ kind of pointer)
+
+Stay tuned. **GOtchas in Go** continues soon.

@@ -49,6 +49,7 @@ export const siteKeywords = [
   "engineering",
   "javascript",
   "typescript",
+  "golang",
   "react",
   "nextjs",
   "TailwindCSS",
