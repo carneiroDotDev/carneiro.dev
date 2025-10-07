@@ -1,0 +1,342 @@
+---
+title: "Gemini Agents: from SDK to ADK #1/10 - The Agent Loop"
+publishedAt: "2025-10-06"
+summary: "Let's dissect the agent loop using Gemini SDK, and understand the four phases: Observe, Think, Act, and Learn. This is a deep dive with implementation details."
+category: "ai"
+---
+
+Guess who is back!? 🎉
+
+So I recently built a Gemini agent using just the SDK because I wanted to really understand how the agent loop works before jumping into the Agent Development Kit (ADK). The thing is, ADK abstracts away all the messy parts and makes creating agents super easy, but I think its worth knowing what's actually happening under the hood. Over the next few posts I'll walk through my journey from SDK to ADK, starting with this deep dive into the agent loop itself.
+
+All the code I'm showing here comes from my [Pyky project](https://github.com/carneiroDotDev/pyky), which is basically a CLI tool that helps me with simple tasks by poking around my local files. Feel free to check it out if you want to see the full implementation.
+
+The agent loop can be broken down into four phases:
+
+**Observe**: The agent looks at whats happening in its environment.
+
+**Think**: The LLM brain processes everything and figures out what to do next.
+
+**Act**: The agent actually does something - could be calling a tool, hitting an API, or just generating text.
+
+**Learn**: The environment gives feedback, and the agent uses that to make better decisions next time.
+
+Most of the interesting stuff happens in [main.py](https://github.com/carneiroDotDev/pyky/blob/main/main.py), especially around the messages array.
+
+---
+
+## How the Agent Loop Actually Works 🔄
+
+Here's something cool: LLMs are completly stateless. Every request is brand new to them - they have no memory of what happened before. So how do we build agents that remember context and can have actual conversations? Thats where the agent loop comes in. It wraps the stateless LLM in a stateful shell by keeping track of conversation history. Pretty clever if you ask me.
+
+### The Messages Array 📝
+
+The messages array is where all the magic happens. It's basically the agent's memory:
+
+```python
+messages = [
+    {
+        "role": "user",
+        "content": f"{SYSTEM_PROMPT}\n\nUser request: {user_request}"
+    }
+]
+```
+
+This first message has two parts: the system prompt (which tells the agent who it is and what tools it has) and the actual user request. Think of it like giving the agent its identity and its first task at the same time.
+
+### Breaking Down Each Phase 🔧
+
+#### Phase 1: Observe 👁️
+
+First, the agent needs to grab the user input:
+
+```python
+def main():
+    parser = argparse.ArgumentParser(description="PyKy - AI Code Assistant")
+    parser.add_argument("prompt", help="Your question or request")
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
+
+    args = parser.parse_args()
+    user_request = args.prompt
+```
+
+Nothing fancy here, just standard argparse stuff. But this is where the agent "sees" what the user wants.
+
+#### Phase 2: Think 🧠
+
+Now we send everything to Gemini and let it do its thing:
+
+```python
+response = model.generate_content(
+    messages,
+    generation_config=generation_config,
+    tools=tools,
+    tool_config=tool_config
+)
+```
+
+The model looks at the messages, checks out what tools are available, and decides what to do. Sometimes it just responds, sometimes it realizes it needs to call a function first.
+
+#### Phase 3: Act 🤖
+
+This is where things get interesting. When the model decides to use a tool, we actually execute it:
+
+```python
+while response.candidates[0].content.parts:
+    part = response.candidates[0].content.parts[0]
+
+    if hasattr(part, 'function_call') and part.function_call:
+        function_name = part.function_call.name
+        function_args = dict(part.function_call.args)
+
+        # Actually call the function
+        result = call_function(function_name, function_args)
+
+        # Add the result back to our conversation
+        messages.append({
+            "role": "function",
+            "parts": [{"function_response": {"name": function_name, "response": result}}]
+        })
+```
+
+See whats happening? The agent calls a function, gets the result, and adds it back to the messages array. This is how the agent interacts with the real world and builds up context.
+
+Here's a real example from PyKy - the function that reads file contents:
+
+```python
+def get_file_content(path: str) -> dict:
+    """Read file contents with safety checks"""
+    try:
+        # Make sure we stay in the working directory
+        full_path = os.path.join(WORKING_DIR, path)
+        if not full_path.startswith(WORKING_DIR):
+            return {"error": "Access denied - path outside working directory"}
+
+        with open(full_path, 'r') as f:
+            content = f.read(MAX_CHARS)
+
+        return {
+            "path": path,
+            "content": content,
+            "size": len(content)
+        }
+    except Exception as e:
+        return {"error": str(e)}
+```
+
+This is one of the tools the agent can use. When it needs to read a file, it calls this function and the result gets added to the conversation. Pretty straightforward but super powerful.
+
+#### Phase 4: Learn 📚
+
+After executing the function, we send everything back to the model:
+
+```python
+# Send the function results back to the model
+response = model.generate_content(
+    messages,
+    generation_config=generation_config,
+    tools=tools,
+    tool_config=tool_config
+)
+```
+
+The model now has the function results in context and can use that information to give a better response. This is the "learning" part - not machine learning, but learning from the immediate feedback.
+
+---
+
+## Key Components of the Agent Loop 🛠️
+
+### System Prompt 🎯
+
+The system prompt is like the agent's constitution - it defines who the agent is and what it can do:
+
+```python
+SYSTEM_PROMPT = """You are PyKy, an AI coding assistant that helps with code analysis,
+debugging, and development tasks. You have access to several tools to help you assist
+the user effectively.
+
+Available tools:
+- get_files_info: List files and directories
+- get_file_content: Read file contents
+- write_file_content: Create or modify files
+- run_python: Execute Python scripts
+
+Important guidelines:
+- Always verify file paths before operations
+- Provide clear explanations of your actions
+- If you're unsure, ask for clarification
+"""
+```
+
+I spent a lot of time tweaking this to get the behavior I wanted. The trick is being specific about what you want but not so restrictive that the agent can't be helpful.
+
+### Tool Configuration 🔧
+
+Tools need to be declared with proper schemas so the model knows how to use them:
+
+```python
+tools = [
+    {
+        "function_declarations": [
+            {
+                "name": "get_files_info",
+                "description": "List files and directories with size information",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path to list (default: current directory)"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "get_file_content",
+                "description": "Read the contents of a file",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path to the file to read"
+                        }
+                    },
+                    "required": ["path"]
+                }
+            }
+        ]
+    }
+]
+```
+
+The more detailed your descriptions, the better the model understands when and how to use each tool.
+
+### Generation Config ⚙️
+
+These settings control how creative or focused the model's responses are:
+
+```python
+generation_config = {
+    "temperature": 0.1,  # Low temp = more focused/deterministic
+    "top_p": 0.8,
+    "top_k": 40,
+    "max_output_tokens": 8192,
+}
+```
+
+I'm using a low temperature here because I want consistent, focused answers for code tasks. If I was building a creative writing assistant, I'd bump this up to like 0.7 or 0.8.
+
+For better understanding, you can check the [llm-sampling-parameters](https://carneiro.dev/blog/llm-sampling-parameters) post.
+
+---
+
+## Putting It All Together 🔄
+
+Let me show you the complete flow with a real example. Say I run:
+
+```bash
+python main.py "What files are in the calculator directory?"
+```
+
+Here's what happens step by step:
+
+1. **Observe**: The CLI captures "What files are in the calculator directory?"
+2. **Think**: Gemini sees the request and the available tools, decides it needs `get_files_info`
+3. **Act**: PyKy executes `get_files_info("calculator")` and adds the results to messages
+4. **Learn**: Gemini gets the file list and generates a nice formatted response
+
+The whole loop might run multiple times if the agent needs to call several tools to complete the task.
+
+### The Complete Main Loop
+
+Here's how it all fits together in the actual code:
+
+```python
+def main():
+    args = parse_arguments()
+    user_request = args.prompt
+
+    # Initialize the conversation
+    messages = [{
+        "role": "user",
+        "content": f"{SYSTEM_PROMPT}\n\nUser request: {user_request}"
+    }]
+
+    # Get initial response
+    response = model.generate_content(
+        messages,
+        generation_config=generation_config,
+        tools=tools,
+        tool_config=tool_config
+    )
+
+    # Keep going until we get a text response (not a function call)
+    max_iterations = 10
+    iteration = 0
+
+    while iteration < max_iterations:
+        iteration += 1
+
+        # Check if we got a function call
+        if response.candidates[0].content.parts:
+            part = response.candidates[0].content.parts[0]
+
+            if hasattr(part, 'function_call') and part.function_call:
+                # Execute the function
+                func_name = part.function_call.name
+                func_args = dict(part.function_call.args)
+                result = call_function(func_name, func_args)
+
+                # Add to conversation history
+                messages.append({
+                    "role": "function",
+                    "parts": [{
+                        "function_response": {
+                            "name": func_name,
+                            "response": result
+                        }
+                    }]
+                })
+
+                # Get next response
+                response = model.generate_content(
+                    messages,
+                    generation_config=generation_config,
+                    tools=tools,
+                    tool_config=tool_config
+                )
+            else:
+                # Got text response, we're done
+                print(response.text)
+                break
+
+    if iteration >= max_iterations:
+        print("Max iterations reached - something might be wrong")
+```
+
+Notice the `max_iterations` check? Learned that the hard way after an infinite loop incident. Always add safeguards!
+
+---
+
+## What I Learned 💡
+
+After building this, a few things became really clear:
+
+**State management is everything**: Even though the LLM has no memory, we can make it seem like it does by carefully managing the messages array.
+
+**Function calling is powerful**: Once you give your agent tools, it becomes way more useful. It's the difference between a chatbot and an actual assistant.
+
+**Context accumulates fast**: Each function call adds more context. After a few iterations, your context window can get pretty big. Need to be mindful of token limits.
+
+**The loop can iterate multiple times**: Sometimes the agent needs to call 3 or 4 functions to complete a task. The loop handles all of that automatically.
+
+## Wrapping Up 🏆
+
+So yeah, thats the agent loop. It's not super complicated once you break it down - just a way to wrap stateless LLMs in a stateful shell so they can actually do useful stuff. The Pyky project shows how you can implement this with about 200 lines of code.
+
+The cool part is understanding this makes everything else easier. When we move to ADK in the next posts, you'll see how it abstracts all this away, but you'll know exactly what its doing behind the scenes.
+
+In part 2 I'll show you how to use ADK to build the same thing but with way less code. Spoiler alert: it's gonna be much simpler. See you then! ✌🏽
+
+(I like writting! 🙌🏽 Happy to remember that!)
