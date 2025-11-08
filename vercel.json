@@ -1,0 +1,39 @@
+{
+  "redirects": [
+    {
+      "source": "/linkedin",
+      "destination": "https://www.linkedin.com/in/carneirodotdev/",
+      "permanent": true
+    },
+    {
+      "source": "/x",
+      "destination": "https://x.com/carneiroDotDev",
+      "permanent": true
+    },
+    {
+      "source": "/github",
+      "destination": "https://github.com/carneiroDotDev",
+      "permanent": true
+    },
+    {
+      "source": "/discord",
+      "destination": "https://discordapp.com/users/carneiro.dev",
+      "permanent": true
+    },
+    {
+      "source": "/instagram",
+      "destination": "https://www.instagram.com/carneiro.Dev/",
+      "permanent": true
+    },
+    {
+      "source": "/facebook",
+      "destination": "https://www.facebook.com/luizdotpro/",
+      "permanent": true
+    },
+    {
+      "source": "/youtube",
+      "destination": "https://www.youtube.com/@carneirodotdev",
+      "permanent": true
+    }
+  ]
+}
