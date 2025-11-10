@@ -39,6 +39,11 @@
       "source": "/agentic",
       "destination": "https://github.com/carneiroDotDev/agentic-ai-ws",
       "permanent": true
+    },
+    {
+      "source": "/prompt",
+      "destination": "https://github.com/carneiroDotDev/agentic-ai-ws/blob/main/prompts/getCertifiedGame.txt",
+      "permanent": true
     }
   ]
 }
