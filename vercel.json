@@ -34,6 +34,11 @@
       "source": "/youtube",
       "destination": "https://www.youtube.com/@carneirodotdev",
       "permanent": true
+    },
+    {
+      "source": "/agentic",
+      "destination": "https://github.com/carneiroDotDev/agentic-ai-ws",
+      "permanent": true
     }
   ]
 }
