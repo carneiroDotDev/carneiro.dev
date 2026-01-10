@@ -21,13 +21,13 @@ export function Nav() {
   return (
     <div
       className={cn(
-        "flex flex-row items-center justify-between pt-10 z-50 mx-5 md:mx-0"
+        "flex flex-row items-center justify-between pt-10 z-50 mx-1 md:mx-0"
       )}
     >
       <Link href={"/"}>
-        <div className="flex items-center justify-between w-32 group">
-          <Icons.orbit className="w-6 h-6 group-hover:animate-spin" />
-          <p className="font-title font-bold">Luiz Carneiro</p>
+        <div className="flex items-center justify-between group">
+          <Icons.orbit className="w-6 h-6 group-hover:animate-spin mr-2" />
+          <p className="font-title font-bold text-lg">Luiz Carneiro</p>
         </div>
       </Link>
       <NavigationMenu>
