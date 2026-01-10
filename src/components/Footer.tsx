@@ -148,7 +148,7 @@ function Footer() {
         </div>
         <div className="mt-8 border-t border-gray-200 pt-4 text-center text-xs dark:border-gray-700">
           <p className="font-title text-black dark:text-gray-200">
-            &copy; 2025 Carneiro. All rights reserved.
+            &copy; {new Date().getFullYear()} Carneiro. All rights reserved.
           </p>
         </div>
       </div>

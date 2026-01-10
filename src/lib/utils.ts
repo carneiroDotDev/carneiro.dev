@@ -14,6 +14,7 @@ export type ResponseData = {
   category: string;
   title: string;
   slug: string;
+  view_count: number;
 }[];
 
 export const fetcher = (

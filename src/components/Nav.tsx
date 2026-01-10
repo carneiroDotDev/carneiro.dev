@@ -14,13 +14,15 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Icons } from "./icons";
-import { DarkModeToggle } from "./ui/DarkModeToggle";
+import { ThemeToggle } from "./ui/ThemeToggle";
 import { POSTS } from "@/lib/constants";
 
 export function Nav() {
   return (
     <div
-      className={cn("flex flex-row items-center justify-between pt-10 z-50")}
+      className={cn(
+        "flex flex-row items-center justify-between pt-10 z-50 mx-5 md:mx-0"
+      )}
     >
       <Link href={"/"}>
         <div className="flex items-center justify-between w-32 group">
@@ -58,7 +60,7 @@ export function Nav() {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="flex items-center justify-between w-20">
-        <DarkModeToggle />
+        <ThemeToggle />
         <Link href="/rss" aria-label="RSS Feed">
           <Icons.rss className="w-6 h-6 hover:-translate-y-1 transition-all" />
         </Link>

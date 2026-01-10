@@ -6,8 +6,8 @@ export default function LatestPosts() {
   const latestPosts = getBlogPosts();
   return (
     <>
-      <h1 className="inline-block font-bold font-title text-4xl tracking-tight lg:text-5xl">
-        {"I've written this:"}
+      <h1 className="inline-block font-bold font-title tracking-tight text-5xl">
+        {"I've writen this:"}
       </h1>
       {latestPosts
         .sort((a, b) => {

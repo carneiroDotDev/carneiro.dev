@@ -83,12 +83,15 @@ async function Page({ params }: { params: Promise<{ category: string }> }) {
       <Header>
         <PageContainer>
           <h1 className="title font-semibold text-2xl mt-4 capitalize">
-            {posts[0]?.metaData.category}
+            {posts[0]?.metaData.category} Posts
+            <p className="text-sm">
+              {posts.length} {posts.length === 1 ? "post" : "posts"}
+            </p>
           </h1>
         </PageContainer>
       </Header>
       <PageContainer>
-        <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
+        <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
           {renderCards}
         </article>
       </PageContainer>

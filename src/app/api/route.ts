@@ -8,6 +8,7 @@ export async function GET() {
         title: true,
         category: true,
         slug: true,
+        view_count: true,
       },
       orderBy: [{ view_count: "desc" }],
     });
