@@ -33,11 +33,11 @@ export function Nav() {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="hover:cursor-pointer">
+            <NavigationMenuTrigger className="hover:cursor-pointer text-base">
               Posts
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              <ul className="grid sm:w-[350px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] ">
                 {POSTS.map((post) => (
                   <ListItem
                     key={post.title}
@@ -52,7 +52,12 @@ export function Nav() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Link href="/about" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <NavigationMenuLink
+                className={cn(
+                  navigationMenuTriggerStyle(),
+                  "text-base sm:text-base"
+                )}
+              >
                 About
               </NavigationMenuLink>
             </Link>
