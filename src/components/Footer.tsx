@@ -14,7 +14,10 @@ function Footer() {
   const [state, dispatch] = useActionState(createSubscriber, initinialState);
 
   const footerLinkStyles =
-    "text-gray-700 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:underline";
+    "text-gray-700 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:underline transition-all";
+
+  const socialIconStyles =
+    "w-6 h-6 text-gray-700 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:-translate-y-1 transition-all";
 
   return (
     <footer className="bg-gray-200 py-8 dark:bg-gray-800 mt-10">
@@ -29,10 +32,10 @@ function Footer() {
                 </div>
               </Link>
             </div>
-            <p className="text-gray-700 dark:text-gray-400 text-sm">
+            <p className="text-gray-700 dark:text-gray-200 text-sm">
               <span>- What do a punching bag and a cache have in common?</span>
               <br />
-              <span>- They can both take a hit!🥊</span>
+              <span>- They can both take a hit! 🥊</span>
             </p>
             <div className="flex space-x-4">
               <a
@@ -41,7 +44,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 aria-label="twitter profile"
               >
-                <Icons.twitter className="w-6 h-6 text-gray-700 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:-translate-y-1 transition-all" />
+                <Icons.twitter className={socialIconStyles} />
               </a>
               <a
                 href={siteConfig.links.github}
@@ -49,7 +52,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 aria-label="github profile"
               >
-                <Icons.gitHub className="h-6 w-6 text-gray-700 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:-translate-y-1 transition-all" />
+                <Icons.gitHub className={socialIconStyles} />
               </a>
               <a
                 href={siteConfig.links.linkedin}
@@ -57,19 +60,16 @@ function Footer() {
                 rel="noopener noreferrer"
                 aria-label="linkedin profile"
               >
-                <Icons.linkedin className="h-6 w-6 text-gray-700 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:-translate-y-1 transition-all" />
+                <Icons.linkedin className={socialIconStyles} />
               </a>
             </div>
           </div>
           <div className="space-y-4">
             <section className="text-md font-normal">Blog</section>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2">
               {POSTS.map((post) => (
                 <li key={`${post.title}_footer2`}>
-                  <Link
-                    href={post.href}
-                    className="text-gray-700 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:underline"
-                  >
+                  <Link href={post.href} className={footerLinkStyles}>
                     {post.title}
                   </Link>
                 </li>
@@ -78,7 +78,7 @@ function Footer() {
           </div>
           <div className="space-y-4">
             <section className="text-md font-normal">Links</section>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2">
               <li>
                 <a href="mailto:luiz@carneiro.dev" className={footerLinkStyles}>
                   Contact
@@ -104,7 +104,7 @@ function Footer() {
           </div>
           <div className="space-y-4">
             <section className="text-md font-normal">Newsletter</section>
-            <p className="text-gray-700 dark:text-gray-400 text-sm">
+            <p className="text-gray-700 dark:text-gray-200 text-sm">
               Not sure what I will send you, but it will be good
             </p>
             <form action={dispatch}>
@@ -146,8 +146,8 @@ function Footer() {
             </form>
           </div>
         </div>
-        <div className="mt-8 border-t border-gray-200 pt-4 text-center text-xs dark:border-gray-700">
-          <p className="font-title text-black dark:text-gray-200">
+        <div className="mt-8 border-t border-gray-200 pt-4 text-center text-sm dark:border-gray-600">
+          <p className="font-title text-black dark:text-gray-100">
             &copy; {new Date().getFullYear()} Carneiro. All rights reserved.
           </p>
         </div>

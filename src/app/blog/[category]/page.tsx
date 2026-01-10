@@ -82,12 +82,16 @@ async function Page({ params }: { params: Promise<{ category: string }> }) {
     <>
       <Header>
         <PageContainer>
-          <h1 className="title font-semibold text-2xl mt-4 capitalize">
-            {posts[0]?.metaData.category} Posts
-            <p className="text-sm">
+          <>
+            <h1 className="title font-semibold text-2xl mt-4 capitalize">
+              {posts[0]?.metaData.category == "ai"
+                ? "AI Engineering"
+                : posts[0]?.metaData.category}
+            </h1>
+            <p className="text-md">
               {posts.length} {posts.length === 1 ? "post" : "posts"}
             </p>
-          </h1>
+          </>
         </PageContainer>
       </Header>
       <PageContainer>

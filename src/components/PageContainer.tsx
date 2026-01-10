@@ -10,7 +10,7 @@ const PageContainer: FC<PageContainerProps> = ({ className, children }) => {
   return (
     <div
       className={cn(
-        "mx-auto w-full max-w-(--breakpoint-xl) px-2.5 md:px-5 lg:px-20",
+        "mx-auto w-full max-w-(--breakpoint-xl) px-4 md:px-6 lg:px-20",
         className
       )}
     >

@@ -16,7 +16,7 @@ export default async function AboutPage() {
           <Nav />
         </PageContainer>
       </div>
-      <PageContainer className="bg-color-white pt-8 sm:pt-16">
+      <PageContainer className="bg-color-white pt-8 sm:pt-16 px-6">
         <div className="flex flex-col flex-1 lg:flex-row gap-8 items-center">
           <div className="flex-1">
             <h1 className="font-title tracking-wide text-4xl font-bold text-gray-900 dark:text-white">

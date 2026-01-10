@@ -59,10 +59,12 @@ export function Nav() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="flex items-center justify-between w-20">
+      <div className="flex items-center justify-between w-20 transition-all">
         <ThemeToggle />
         <Link href="/rss" aria-label="RSS Feed">
-          <Icons.rss className="w-6 h-6 hover:-translate-y-1 transition-all" />
+          <Icons.rss className="w-6 h-6 hover:bg-accent hover:text-accent-foreground transition-all hover:-translate-y-1" />
+          <span className="sr-only">RSS Feed</span>
+          {/* <Icons.rss className="w-6 h-6 p-1.5 rounded-md hover:bg-accent hover:text-accent-foreground transition-all" /> */}
         </Link>
       </div>
     </div>
