@@ -131,7 +131,7 @@ async function ArticlePage({
         </PageContainer>
       </Header>
       <PageContainer>
-        <article className="prose">
+        <article className="prose mx-auto">
           <RenderMDX source={post.content} />
         </article>
       </PageContainer>

@@ -56,16 +56,16 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
 
-    /* code highlight */
-    --sh-class: #2d5e9d;
-    --sh-identifier: #354150;
-    --sh-sign: #8996a3;
-    --sh-string: #007f7a;
-    --sh-keyword: #e02518;
-    --sh-comment: #a19595;
-    --sh-jsxliterals: #226104;
-    --sh-property: #ee5006;
-    --sh-entity: #0953f3;
+    /* code highlight - improved readability */
+    --sh-class: #0969da;
+    --sh-identifier: #24292f;
+    --sh-sign: #656d76;
+    --sh-string: #0a3069;
+    --sh-keyword: #cf222e;
+    --sh-comment: #6e7781;
+    --sh-jsxliterals: #0550ae;
+    --sh-property: #8250df;
+    --sh-entity: #0969da;
   }
   .dark {
     --background: 20 14.3% 4.1%;
@@ -93,16 +93,16 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
 
-    /* code highlight */
-    --sh-class: #4c97f8;
-    --sh-identifier: white;
-    --sh-keyword: #f47067;
-    --sh-string: #0fa295; /* code highlight */
-    --sh-sign: #8995a3;
-    --sh-comment: #a19594;
-    --sh-jsxliterals: #f47066;
-    --sh-property: #e24a1c;
-    --sh-entity: #2ff108;
+    /* code highlight - improved readability for dark mode */
+    --sh-class: #79c0ff;
+    --sh-identifier: #e6edf3;
+    --sh-sign: #8b949e;
+    --sh-string: #a5d6ff;
+    --sh-keyword: #ff7b72;
+    --sh-comment: #8b949e;
+    --sh-jsxliterals: #79c0ff;
+    --sh-property: #d2a8ff;
+    --sh-entity: #79c0ff;
   }
 }
 
@@ -126,7 +126,6 @@
 
 .prose .anchor {
   @apply absolute invisible no-underline;
-
   margin-left: -1em;
   padding-right: 0.5em;
   width: 80%;
@@ -139,11 +138,30 @@
 }
 
 .prose a {
-  @apply underline transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
+  @apply underline transition-all underline-offset-2;
+  font-size: 21px;
+  line-height: 1.58;
+  color: rgba(0, 0, 0, 0.84);
+  text-decoration-color: rgba(0, 0, 0, 0.3);
+  text-underline-offset: 2px;
+}
+
+.dark .prose a {
+  color: rgba(255, 255, 255, 0.84);
+  text-decoration-color: rgba(255, 255, 255, 0.3);
+}
+
+.prose a:hover {
+  text-decoration-color: rgba(0, 0, 0, 0.6);
+}
+
+.dark .prose a:hover {
+  text-decoration-color: rgba(255, 255, 255, 0.6);
 }
 
 .prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
+  @apply light:text-black dark:text-white;
+  font-size: 18px;
   content: "#";
 }
 
@@ -152,11 +170,34 @@
 }
 
 .prose pre {
-  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 py-2 px-3 text-sm;
+  @apply bg-neutral-50 dark:bg-[#161b22] rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-700 py-4 px-5 my-6;
+  font-size: 16px;
+  line-height: 1.58;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
 .prose code {
-  @apply px-1 py-0.5 rounded-lg;
+  @apply px-1.5 py-0.5 rounded;
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.9);
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+.dark .prose code {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(230, 237, 243, 0.9);
+}
+
+/* Improve code block text color for better readability */
+.prose pre code {
+  color: rgba(0, 0, 0, 0.9);
+  background: transparent;
+}
+
+.dark .prose pre code {
+  color: rgba(230, 237, 243, 0.9);
+  background: transparent;
 }
 
 .prose pre code {
@@ -174,36 +215,140 @@
   @apply m-0;
 }
 
+.prose {
+  @apply text-base;
+  font-size: 21px;
+  line-height: 1.58;
+  color: rgba(0, 0, 0, 0.84);
+  max-width: 680px;
+}
+
+.dark .prose {
+  color: rgba(255, 255, 255, 0.84);
+}
+
 .prose p {
-  @apply my-4 text-neutral-800 dark:text-neutral-200;
+  @apply my-6;
+  font-size: 21px;
+  line-height: 1.58;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.84);
+  letter-spacing: -0.003em;
+}
+
+.dark .prose p {
+  color: rgba(255, 255, 255, 0.84);
 }
 
 .prose h1 {
-  @apply text-4xl font-medium tracking-tight mt-6 mb-2;
+  @apply font-bold mt-12 mb-6;
+  font-size: 42px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 700;
+}
+
+.dark .prose h1 {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .prose h2 {
-  @apply text-xl font-normal mt-6 mb-2;
+  @apply font-bold mt-10 mb-4;
+  font-size: 34px;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 700;
+}
+
+.dark .prose h2 {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .prose h3 {
-  @apply text-xl font-normal mt-6 mb-2;
+  @apply font-bold mt-8 mb-3;
+  font-size: 28px;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 700;
+}
+
+.dark .prose h3 {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .prose h4 {
-  @apply text-lg font-normal mt-6 mb-2;
+  @apply font-bold mt-8 mb-3;
+  font-size: 24px;
+  line-height: 1.25;
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 700;
+}
+
+.dark .prose h4 {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .prose strong {
-  @apply font-medium;
+  @apply font-bold;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.dark .prose strong {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.prose blockquote {
+  @apply my-6 border-l-4 border-neutral-300 dark:border-neutral-600 pl-6 italic;
+  font-size: 21px;
+  line-height: 1.58;
+  color: rgba(0, 0, 0, 0.68);
+  letter-spacing: -0.003em;
+}
+
+.dark .prose blockquote {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.prose blockquote p {
+  @apply my-0;
 }
 
 .prose ul {
-  @apply list-disc pl-6;
+  @apply list-disc pl-6 my-6;
+  font-size: 21px;
+  line-height: 1.58;
+  color: rgba(0, 0, 0, 0.84);
+}
+
+.dark .prose ul {
+  color: rgba(255, 255, 255, 0.84);
 }
 
 .prose ol {
-  @apply list-decimal pl-6;
+  @apply list-decimal pl-6 my-6;
+  font-size: 21px;
+  line-height: 1.58;
+  color: rgba(0, 0, 0, 0.84);
+}
+
+.dark .prose ol {
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.prose li {
+  @apply my-3;
+  font-size: 21px;
+  line-height: 1.58;
+  color: rgba(0, 0, 0, 0.84);
+  letter-spacing: -0.003em;
+}
+
+.dark .prose li {
+  color: rgba(255, 255, 255, 0.84);
 }
 
 .prose > :first-child {
