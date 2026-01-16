@@ -15,11 +15,15 @@ export default function Home() {
           </div>
           <div className="md:pl-8 md:h-screen w-[400px]">
             <div>
-              <section className="font-normal mb-4">Posts category</section>
+              <section className="font-semibold mb-4 text-lg text-gray-900 dark:text-gray-100">
+                Posts category
+              </section>
               <TopCategories />
             </div>
             <div className="sticky mt-10 top-0">
-              <section className="font-normal mb-4">Popular Posts</section>
+              <section className="font-semibold mb-4 text-lg text-gray-900 dark:text-gray-100">
+                Popular Posts
+              </section>
               <PopularPosts />
             </div>
           </div>

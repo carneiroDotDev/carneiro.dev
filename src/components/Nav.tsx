@@ -51,16 +51,17 @@ export function Nav() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/about" legacyBehavior passHref>
-              <NavigationMenuLink
+            <NavigationMenuLink asChild>
+              <Link
+                href="/about"
                 className={cn(
                   navigationMenuTriggerStyle(),
                   "text-base sm:text-base"
                 )}
               >
                 About
-              </NavigationMenuLink>
-            </Link>
+              </Link>
+            </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>

@@ -1,9 +1,9 @@
-import React, { FC, ReactElement } from "react";
+import React, { FC, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface PageContainerProps {
   className?: string;
-  children: ReactElement;
+  children: ReactNode;
 }
 
 const PageContainer: FC<PageContainerProps> = ({ className, children }) => {

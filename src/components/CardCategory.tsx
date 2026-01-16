@@ -1,4 +1,4 @@
-import React, { unstable_ViewTransition as ViewTransition } from "react";
+import React from "react";
 import {
   Card,
   CardContent,
@@ -17,9 +17,11 @@ function CardCategory({ title, summary, date }: CardCategoryProps) {
   return (
     <Card className="w-[350px] h-[250px] hover:shadow-lg hover:shadow-amber-100 dark:border-gray-600 transition-all duration-300 ease-in-out">
       <CardHeader>
-        <ViewTransition name="post-title">
-          <CardTitle>{title}</CardTitle>
-        </ViewTransition>
+        <CardTitle
+          style={{ viewTransitionName: "post-title" } as React.CSSProperties}
+        >
+          {title}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <p>{summary}</p>

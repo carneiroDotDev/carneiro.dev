@@ -21,7 +21,7 @@ function PopularPosts() {
             href={`/blog/${post.category}/${post.slug}`}
           >
             <Icons.arrowRight className="h-6 w-6 group-hover:translate-x-1 transition-all" />
-            <p>
+            <p className="text-lg">
               {post.title}
               <span className="text-sm">
                 {` - ${post.view_count} ${

@@ -1,8 +1,9 @@
 import { Nav } from "@/components/Nav";
 import PageContainer from "@/components/PageContainer";
-import React, { JSX } from "react";
+import React, { ReactNode } from "react";
 
-export default function BlogLayout({ children }: { children: JSX.Element }) {
+//TODO: Check type of children
+export default function BlogLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <div className="bg-gray-100 dark:bg-gray-800">

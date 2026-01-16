@@ -1,11 +1,9 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { unstable_ViewTransition as ViewTransition } from "react";
 import { formatDate, getBlogPosts } from "@/app/blog/utils";
 import Header from "@/components/Header";
 import PageContainer from "@/components/PageContainer";
 import { Breadcrumb } from "@/components/BreadCrumb";
-import RenderMDX from "@/components/RenderMDX";
 import ReportViews from "@/components/ReportViews";
 import { baseUrl } from "@/app/sitemap";
 import { siteConfig } from "@/config/site";
@@ -81,6 +79,15 @@ async function ArticlePage({
   // Format the date on the server side
   const formattedDate = formatDate(post.metaData.publishedAt);
 
+  // Dynamically import the MDX component
+  let MDXContent: React.ComponentType;
+  try {
+    const mdxModule = await import(`@/app/blog/contents/${post.slug}.mdx`);
+    MDXContent = mdxModule.default;
+  } catch {
+    notFound();
+  }
+
   return (
     <>
       <script
@@ -114,11 +121,14 @@ async function ArticlePage({
         <PageContainer>
           <>
             <Breadcrumb category={post.metaData.category} slug={post.slug} />
-            <ViewTransition name="post-title">
-              <h1 className="font-normal text-2xl mt-4">
-                {post.metaData.title}
-              </h1>
-            </ViewTransition>
+            <h1
+              className="font-normal text-2xl mt-4"
+              style={
+                { viewTransitionName: "post-title" } as React.CSSProperties
+              }
+            >
+              {post.metaData.title}
+            </h1>
             <div className="flex justify-between items-center mt-2 mb-4">
               <p
                 className="text-neutral-600 dark:text-neutral-200 mt-2"
@@ -132,7 +142,7 @@ async function ArticlePage({
       </Header>
       <PageContainer>
         <article className="prose mx-auto">
-          <RenderMDX source={post.content} />
+          <MDXContent />
         </article>
       </PageContainer>
     </>

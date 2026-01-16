@@ -1,13 +1,13 @@
 import { formatDate, getBlogPosts } from "@/app/blog/utils";
 import Link from "next/link";
-import { unstable_ViewTransition as ViewTransition } from "react";
+import React from "react";
 
 export default function LatestPosts() {
   const latestPosts = getBlogPosts();
   return (
     <>
-      <h1 className="inline-block font-bold font-title tracking-tight text-5xl">
-        {"I've writen this:"}
+      <h1 className="inline-block font-bold font-title tracking-tight text-4xl md:text-5xl mb-2 md:mb-4 text-gray-900 dark:text-gray-100">
+        {"What I'm playing with:"}
       </h1>
       {latestPosts
         .sort((a, b) => {
@@ -21,17 +21,29 @@ export default function LatestPosts() {
         .map((post) => {
           const formattedDate = formatDate(post.metaData.publishedAt);
           return (
-            <article key={post.slug} className="text-wrap max-w-md my-10 group">
+            <article key={post.slug} className="text-wrap max-w-md my-6 group">
               <Link href={`/blog/${post.metaData.category}/${post.slug}`}>
-                <ViewTransition name="post-title">
-                  <h2 className="font-normal py-2 leading-5 group-hover:text-blue-400">
+                <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200">
+                  <h2
+                    className="font-semibold py-2 mb-3 text-xl leading-7 group-hover:text-blue-400 text-gray-900 dark:text-gray-100"
+                    style={
+                      {
+                        viewTransitionName: "post-title",
+                      } as React.CSSProperties
+                    }
+                  >
                     {post.metaData.title}
                   </h2>
-                </ViewTransition>
-                <p className="leading-8 my-5">{post.metaData.summary}</p>
-                <p className="text-sm text-gray-800 dark:text-white">
-                  {formattedDate}
-                </p>
+                  <p
+                    className="text-md leading-7 my-4 text-gray-700 dark:text-gray-200 
+                  font-normal"
+                  >
+                    {post.metaData.summary}
+                  </p>
+                  <p className="text-md text-gray-600 dark:text-gray-200 mt-4">
+                    {formattedDate}
+                  </p>
+                </div>
               </Link>
             </article>
           );
