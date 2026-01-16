@@ -46,7 +46,7 @@ function CustomLink(props: CustomLinkProps) {
 }
 
 function RoundedImage(props: ImageProps) {
-  return <Image {...props} alt={props.alt || ""} className="rounded-lg" />;
+  return <Image {...props} width={1000} height={1000} quality={25} alt={props.alt || ""} className="rounded-lg" />;
 }
 
 function slugify(str: string) {

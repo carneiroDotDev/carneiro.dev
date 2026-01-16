@@ -1,17 +1,17 @@
+import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { siteAuthors, siteConfig, siteKeywords } from "@/config/site";
+import "@/styles/globals.css";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import {
-  Ubuntu,
   Bellota,
   Geist,
   Geist_Mono,
   Open_Sans,
+  Ubuntu,
 } from "next/font/google";
-import "@/styles/globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import Footer from "@/components/Footer";
-import { siteAuthors, siteConfig, siteKeywords } from "@/config/site";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
@@ -49,6 +49,7 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
     template: `${siteConfig.name} - %s`,
