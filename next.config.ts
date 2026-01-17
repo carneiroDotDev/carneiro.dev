@@ -1,5 +1,5 @@
-import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
+import type { NextConfig } from "next";
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
@@ -24,7 +24,17 @@ const withMDX = createMDX({
       ["remark-frontmatter", { type: "yaml", marker: "-" }],
       ["remark-mdx-frontmatter", {}],
     ],
-    rehypePlugins: ["rehype-highlight"],
+    rehypePlugins: [
+      [
+        "rehype-pretty-code",
+        {
+          theme: {
+            light: "github-light",
+            dark: "github-dark",
+          },
+        },
+      ],
+    ],
   },
 });
 
