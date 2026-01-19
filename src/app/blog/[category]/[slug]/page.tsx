@@ -1,12 +1,14 @@
-import React from "react";
-import { notFound } from "next/navigation";
 import { formatDate, getBlogPosts } from "@/app/blog/utils";
+import { baseUrl } from "@/app/sitemap";
+import ArticleActions from "@/components/ArticleActions";
+import { Breadcrumb } from "@/components/BreadCrumb";
 import Header from "@/components/Header";
 import PageContainer from "@/components/PageContainer";
-import { Breadcrumb } from "@/components/BreadCrumb";
 import ReportViews from "@/components/ReportViews";
-import { baseUrl } from "@/app/sitemap";
 import { siteConfig } from "@/config/site";
+import { db } from "@/db";
+import { notFound } from "next/navigation";
+import React from "react";
 
 // Generate static pages from these dynamic routes
 export async function generateStaticParams() {
@@ -76,6 +78,14 @@ async function ArticlePage({
     notFound();
   }
 
+  // Fetch likes from DB
+  const postRecord = await db.blog.findUnique({
+    where: { slug },
+    select: { likes: true },
+  });
+  
+  const initialLikes = postRecord?.likes || 0;
+
   // Format the date on the server side
   const formattedDate = formatDate(post.metaData.publishedAt);
 
@@ -142,6 +152,7 @@ async function ArticlePage({
       </Header>
       <PageContainer>
         <article className="prose mx-auto">
+        <ArticleActions initialLikes={initialLikes} slug={post.slug} category={post.metaData.category} />
           <MDXContent />
         </article>
       </PageContainer>

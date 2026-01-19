@@ -50,3 +50,22 @@ export async function createSubscriber(
     return { message: "DB error: Failed to create subscriber." };
   }
 }
+
+export async function incrementLike(slug: string, category: string, amount: number = 1) {
+  try {
+    await db.blog.upsert({
+      where: { slug },
+      update: { likes: { increment: amount } },
+      create: {
+        slug,
+        title: slug, 
+        category, 
+        content: "",
+        likes: amount,
+      },
+    });
+    revalidatePath(`/blog/${category}/${slug}`);
+  } catch (error) {
+    console.error("Failed to increment like:", error);
+  }
+}
