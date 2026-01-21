@@ -39,7 +39,7 @@ export default function ArticleActions({ initialLikes, slug, category }: { initi
     debounceRef.current = setTimeout(() => {
       incrementLike(slug, category, pendingLikes);
       setPendingLikes(0);
-    }, 5000);
+    }, 1500);
 
     return () => {
       if (debounceRef.current) {
