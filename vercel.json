@@ -56,8 +56,13 @@
       "permanent": true
     },
     {
-      "source": "/skills",
+      "source": "/googleskills",
       "destination": "https://docs.google.com/document/d/1aXiXa2hL_WuDQeAReELVXbVYFplZAhpqWq5pssv0bv0/edit?usp=sharing",
+      "permanent": true
+    },
+    {
+      "source": "/ducktaipe",
+      "destination": "https://ducktaipe-frontend-979138472410.us-central1.run.app/",
       "permanent": true
     }
   ]
