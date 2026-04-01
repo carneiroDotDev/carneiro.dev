@@ -64,6 +64,11 @@
       "source": "/ducktaipe",
       "destination": "https://ducktaipe-frontend-979138472410.us-central1.run.app/",
       "permanent": true
+    },
+    {
+      "source": "/ws-multiagent",
+      "destination": "https://course-creator-311115041393.us-central1.run.app/",
+      "permanent": true
     }
   ]
 }
