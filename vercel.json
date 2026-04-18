@@ -69,6 +69,11 @@
       "source": "/ws-multiagent",
       "destination": "https://course-creator-311115041393.us-central1.run.app/",
       "permanent": true
+    },
+    {
+      "source": "/gdgbgl",
+      "destination": "https://trygcp.dev/claim/deveco-gdg-55e47109d6e",
+      "permanent": true
     }
   ]
 }
