@@ -74,6 +74,16 @@
       "source": "/gdgbgl",
       "destination": "https://trygcp.dev/claim/deveco-gdg-55e47109d6e",
       "permanent": true
+    },
+    {
+      "source": "/vibecode",
+      "destination": "https://codelabs.developers.google.com/vibe-code-with-gemini-in-aistudio#0",
+      "permanent": true
+    },
+    {
+      "source": "/multiagent",
+      "destination": "https://codelabs.developers.google.com/codelabs/production-ready-ai-roadshow/1-building-a-multi-agent-system/building-a-multi-agent-system?hl=en#0",
+      "permanent": true
     }
   ]
 }
