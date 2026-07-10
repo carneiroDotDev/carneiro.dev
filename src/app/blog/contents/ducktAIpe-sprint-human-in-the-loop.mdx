@@ -1,0 +1,133 @@
+---
+title: "Gemini Agents: A2A meets MCP with Human-in-the-Loop"
+publishedAt: "2026-07-10"
+summary: "How I implemented an Interactive Human-in-the-Loop Approval Gate in a multi-agent system using state suspension for the Google Agentic Architect Sprint 2026."
+category: "ai"
+---
+
+![Human-in-the-Loop image](/images/blog/ducktaipe-sprint-pending-state.png)
+
+Guess who is back!? 🎉
+
+So, the **Google Agentic Architect Sprint 2026** is here, and I couldn't resist 🥶 
+
+If you remember my previous post about building multi-agent systems, I introduced **ducktAIpe**, my sandbox repair tutorial generator where a crew of specialized AI agents (Gatekeeper, Researcher, Judge, and Content Builder) work together to turn technical problems into step-by-step guides. 
+
+For the Sprint, I wanted to tackle one of the most critical topics in AI architecture today: **Governance, Reliability, and Safety.** Specifically, how do we introduce **Interactive Human-in-the-Loop Approval Gates** without breaking the flow of a distributed multi-agent system?
+
+Here is a deep dive into how I built it for **ducktAIpe-sprint** using an "Escrow-style" state suspension model ⬇️
+
+---
+
+## Autonomy vs. Control: The AI Dilemma ⚖️
+
+Fully autonomous agents are cool in demos, but in production, they can be terrifying. If an agent has access to system commands or external APIs (via **Model Context Protocol / MCP**), you flat-out cannot let it run wild without guardrails. 
+
+But how do you pause a running agent to ask a human, *"Hey, is this fact-check correct?"* or *"Should I execute this tool?"* without keeping HTTP connections open forever?
+
+> **Human-in-the-Loop (HITL) Gate**
+>
+> A design pattern where an agent halts execution at a critical decision boundary, persists its current state, and waits for a human user to inspect findings and signal approval before resuming.
+
+Instead of keeping a long-lived, brittle socket connection open while a user is away from their keyboard, we can design an **Escrow Architecture**. 
+
+---
+
+## The Escrow Design Pattern 📦
+
+The concept is simple. We split the execution into two distinct phases governed by the user's session state:
+
+1. **Phase 1 (Research & Pause):** The Gatekeeper validates the prompt, the Researcher searches the web, and the Judge reviews the findings. If it passes, the orchestrator updates the session state to `awaiting_approval` and **stops running**.
+2. **Phase 2 (Approve & Build):** The frontend displays the research findings. If the user clicks **Approve**, we make a `PATCH` request to the session state setting `approved = True`, and trigger the orchestrator again. The orchestrator loads the state, sees it's approved, skips the research phase entirely, and jumps straight to the Content Builder!
+
+This stateless approach is incredibly robust. Here's how it works under the hood.
+
+---
+
+## Under the Hood: The Code 🔧
+
+### 1. The State-Aware Orchestrator
+
+In the original `ducktAIpe` codebase, I used a static `SequentialAgent` from the Google ADK. To support conditional branching (i.e. skipping steps on resume), I wrote a custom orchestrator class extending `BaseAgent`:
+
+```python
+class RepairTutorialPipeline(BaseAgent):
+    async def _run_async_impl(self, ctx: InvocationContext) -> AsyncGenerator[Event, None]:
+        state = ctx.session.state
+
+        # Phase 2: If session is already approved, run ONLY the Content Builder
+        if state.get("approved") is True:
+            logger.info(">>> HITL Approval Gate: APPROVED: Executing Content Builder")
+            async for event in content_builder.run_async(ctx):
+                yield event
+            return
+
+        # Phase 1: Run the Gatekeeper and Research Loop
+        logger.info(">>> Running Gatekeeper...")
+        async for event in gatekeeper.run_async(ctx): yield event
+        async for event in gatekeeper_checker.run_async(ctx): yield event
+
+        # ... (Topic Enrichment and Research Loop execution) ...
+        async for event in research_loop.run_async(ctx): yield event
+        
+        # Check if Judge passed the research
+        judge_feedback = state.get("judge_feedback")
+        if is_pass(judge_feedback):
+            # Save state and pause!
+            state["status"] = "awaiting_approval"
+            yield Event(
+                author=self.name,
+                content={"parts": [{"text": "[STATUS: awaiting_approval] Research complete."}]}
+            )
+```
+
+By switching to a custom `BaseAgent` subclass, we gain complete control over the execution path based on the persisted `ctx.session.state`.
+
+### 2. Updating State without Running Agents
+
+To update the session state when the user clicks "Approve", we call the ADK server's `PATCH` endpoint. Here is the FastAPI backend handler in `main.py`:
+
+```python
+async def approve_session(agent_server_origin: str, agent_name: str, user_id: str, session_id: str) -> None:
+    httpx_client = await get_client(agent_server_origin)
+    headers = [("Content-Type", "application/json")]
+    url = f"{agent_server_origin}/apps/{agent_name}/users/{user_id}/sessions/{session_id}"
+    
+    # We update the session state without executing any agent loops
+    payload = {
+        "state_delta": {
+            "approved": True,
+            "status": "approved"
+        }
+    }
+    resp = await httpx_client.patch(url, headers=headers, json=payload)
+    resp.raise_for_status()
+```
+
+Once the state is patched, the backend triggers `/run_sse` with a placeholder message. The Orchestrator wakes up, reads `approved: True` from the session database, and skips straight to the Content Builder.
+
+---
+
+## The Frontend UX 🎨
+
+On the frontend, when the stream receives the `awaiting_approval` payload, we hide the progress spinner, extract the research findings from the session object, and render a dedicated approval card:
+
+```javascript
+} else if (data.type === 'awaiting_approval') {
+    progressContainer.classList.add('hidden');
+    approvalFindingsSummary.value = data.findings;
+    approvalContainer.classList.remove('hidden'); // Show Approve / Reject buttons
+}
+```
+
+If the user clicks **Approve**, we post to `/api/approve_session`, hide the card, resume the loading screen, and pipe the rest of the stream containing the final tutorial.
+
+---
+
+## Conclusion 🏁
+
+Implementing Human-in-the-Loop patterns doesn't have to mean maintaining stateful, fragile WebSocket connections or long-lived server threads. By leveraging the **Session State Store** of Google's ADK and using standard REST methods like `PATCH`, we built a robust, enterprise-grade escrow architecture that gives users complete control over their agentic workflows.
+
+You can check out the full sprint codebase at my [/ducktaipe-sprint](/ducktaipe-sprint) redirect (or directly on [GitHub](https://github.com/carneiroDotDev/ducktaipe-sprint)).
+
+What are your thoughts on agent escrow architectures? Let me know in the comments! 🦆
